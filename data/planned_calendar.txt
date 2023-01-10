@@ -1,24 +1,25 @@
-# Add planned calendar. Each competition in new line
-Trondheim HS138
-Lillehammer HS140
-Lillehammer HS140
-Vikersund HS240
-Engelberg HS137
-Engelberg HS137
-Wisła HS134
-Zakopane HS140
-Oberstdorf HS137
-Gramish-Partenkirchen HS142
-Innsbruck HS128
-Bischofshofen HS142
-Bad Mitterndorf HS200
-Bad Mitterndorf HS200
-Sapporo HS137
-Sapporo HS137
-Zhangjiakou HS140
-Zhangjiakou HS140
-Whistler HS142
-Whistler HS142
-Planica HS240
-Planica HS240
-Planica HS240
+# Add planned calendar. Each competition in new line.
+# After semi-colon put type: ind or team
+Trondheim HS138;ind
+Lillehammer HS140;ind
+Lillehammer HS140;ind
+Vikersund HS240;ind
+Engelberg HS137;ind
+Engelberg HS137;ind
+Wisła HS134;ind
+Zakopane HS140;ind
+Oberstdorf HS137;ind
+Gramish-Partenkirchen HS142;ind
+Innsbruck HS128;ind
+Bischofshofen HS142;ind
+Bad Mitterndorf HS200;ind
+Bad Mitterndorf HS200;ind
+Sapporo HS137;ind
+Sapporo HS137;ind
+Zhangjiakou HS140;ind
+Zhangjiakou HS140;ind
+Whistler HS142;ind
+Whistler HS142;ind
+Planica HS240;ind
+Planica HS240;ind
+Planica HS240;ind
