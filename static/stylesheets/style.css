@@ -1,0 +1,30 @@
+body {
+    background-color: #222;
+    color: white;
+    font-family: Bahnschrift;
+    margin: 10px;
+}
+
+nav {}
+
+.flex-box {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
+}
+
+table {
+    border: solid 1px white;
+    border-collapse: collapse;
+}
+
+td, tr {
+    padding: 5px 10px;
+    border: solid 1px white;
+}
+
+.tournament-col {
+    width: 100px;
+    text-align: center;
+}
