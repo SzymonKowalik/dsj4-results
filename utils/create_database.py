@@ -12,6 +12,7 @@ def clear_results_folder(stats_path):
             os.remove(file)
 
 
+# TODO Fix regex when surname is 3 uppercase letters
 def prepare_file_individual(file_path, comp_type):
     """
        Prepare file for competition results data.
@@ -70,6 +71,7 @@ def prepare_file_individual(file_path, comp_type):
 
         # Make place integer and 2 last columns float values
         for i, row in enumerate(results):
+            print(row)
             row[0] = int(row[0][:-1])
             row[4] = float(row[4].removesuffix('*')[:-2])
             row[5] = float(row[5])

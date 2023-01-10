@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+    {% if results|length > 1 %}
+        <h2>{{ hill_name }}</h2>
+        <table>
+        {% for row in results %}
+            <tr>
+            {% for col in row %}
+                <td>{{ col }}</td>
+            {% endfor %}
+            </tr>
+        {% endfor %}
+        </table>
+    {% else %}
+        <h2>Competition has not been finished yet.</h2>
+    {% endif %}
+{% endblock %}

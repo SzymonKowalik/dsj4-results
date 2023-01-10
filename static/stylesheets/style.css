@@ -5,7 +5,9 @@ body {
     margin: 10px;
 }
 
-nav {}
+h1, h2, h3 {
+    margin: 15px;
+}
 
 .flex-box {
     display: flex;
@@ -14,17 +16,25 @@ nav {}
     align-content: center;
 }
 
-table {
-    border: solid 1px white;
-    border-collapse: collapse;
+table, td, tr {
+    padding: 5px 10px;
+    border: solid 1px #444;
 }
 
-td, tr {
-    padding: 5px 10px;
-    border: solid 1px white;
+table {
+    border-collapse: collapse;
 }
 
 .tournament-col {
     width: 100px;
     text-align: center;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+a:hover {
+    color: lightblue;
 }

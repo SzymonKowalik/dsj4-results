@@ -19,8 +19,6 @@ def main():
     shutil.rmtree(stats_path)
     # Remove database
     os.remove('./data/results.db')
-    # Remove classification
-    os.remove('./data/classifications.xlsx')
 
 
 if __name__ == '__main__':
