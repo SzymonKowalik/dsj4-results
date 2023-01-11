@@ -12,11 +12,13 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Calendar</a>
+            <a class="nav-link" href="{{ url_for('index') }}">Calendar</a>
           </li>
             {% for tournament in tournaments %}
           <li class="nav-item">
-            <a class="nav-link" href="#">{{ tournament[0] }}</a>
+            <a class="nav-link" href="{{ url_for('tournament', tournament_name=tournament[0]) }}">
+                {{ tournament[0] }}
+            </a>
           </li>
             {% endfor %}
         </ul>

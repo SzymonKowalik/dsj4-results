@@ -1,6 +1,5 @@
 from itertools import zip_longest
 from utils.classifications import read_tournaments
-import copy
 
 
 def read_planned_calendar():

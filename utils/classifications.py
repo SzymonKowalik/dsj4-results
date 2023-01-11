@@ -10,7 +10,7 @@ def ind_wc_classification(cursor):
                        sum(points) - (select * from max_pts) as pts_diff
                 from ind_results group by name order by pt desc'''
     cursor.execute(query)
-    return 'Individual World Cup classification', cursor.fetchall()
+    return 'Individual World Cup', cursor.fetchall()
 
 
 def team_wc_classification(cursor):
@@ -31,7 +31,7 @@ def team_wc_classification(cursor):
                 select *, pt - (select max(pt) from classification) as pt_loss
                 from classification'''
     cursor.execute(query)
-    return 'Team World Cup classification', cursor.fetchall()
+    return 'Team World Cup', cursor.fetchall()
 
 
 def tournament_classification(cursor, name, comp_type, competition_ids, qualification_ids):
@@ -122,7 +122,7 @@ def prepare_tournament_info(tournament):
     return name, comp_type, competition_ids, qualification_ids
 
 
-def create_tournament_classifications(cursor, tournaments):
+def create_all_tournaments_classifications(cursor, tournaments):
     """Generates the classifications for individual World Cup, team World Cup,
     and the tournaments listed in the tournaments.txt file.
     Parameters: cursor (sqlite3.Cursor): Cursor object to execute SQL commands.

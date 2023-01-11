@@ -19,30 +19,4 @@
                 </tr>
             {% endfor %}
             </table>
-
-
-        <h2>Classifications</h2>
-        {% for classification in classifications %}
-            {% if classification[1] %}
-            {{ classification[0] }}
-            <table>
-            {% for row in classification[1][:20] %}
-                <tr>
-                    <td>{{ row[0] }}</td>
-                    <td>
-                        <a href="{{ url_for('competitor', name=row[1]) }}">
-                            {{ row[1] }}
-                        </a>
-                    </td>
-                    <td>{{ row[2] }}</td>
-                    <td>{{ row[3] }}</td>
-                    {% if row[4] %}
-                    <td>{{ row[4] }}</td>
-                    {% endif %}
-                </tr>
-            {% endfor %}
-            </table>
-            <br><br><br>
-        {% endif %}
-        {% endfor %}
 {% endblock %}

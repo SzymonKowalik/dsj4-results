@@ -71,7 +71,6 @@ def prepare_file_individual(file_path, comp_type):
 
         # Make place integer and 2 last columns float values
         for i, row in enumerate(results):
-            print(row)
             row[0] = int(row[0][:-1])
             row[4] = float(row[4].removesuffix('*')[:-2])
             row[5] = float(row[5])
@@ -199,7 +198,8 @@ def process_competition_files(cursor, db_con):
                 add_individual_competition_results(cursor, db_con, comp_id, file_data)
                 print(f'Added ind {comp_type} with id={comp_id}')
         except sqlite3.IntegrityError as e:
-            print(e)
+            # print(e)
+            pass
         if comp_type != 'qual':
             comp_id += 1
 
