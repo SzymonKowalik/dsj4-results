@@ -3,6 +3,7 @@ import shutil
 
 
 def main():
+    """Clears DSJ4 Stats folder, makes copy of results, removes database."""
     # Confirmation
     confirm = input('Type "YES" to remove results and reset configurations')
     if confirm != 'YES':
@@ -15,8 +16,9 @@ def main():
     except FileExistsError:
         shutil.rmtree('./data/stats_copy')
         shutil.copytree(stats_path, './data/stats_copy')
-    # Remove stats folder
+    # Remove stats folder and recreate
     shutil.rmtree(stats_path)
+    os.mkdir(stats_path)
     # Remove database
     os.remove('./data/results.db')
 

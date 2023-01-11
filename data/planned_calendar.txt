@@ -4,22 +4,20 @@ Trondheim HS138;ind
 Lillehammer HS140;ind
 Lillehammer HS140;ind
 Vikersund HS240;ind
+Vikersund HS240;team
 Engelberg HS137;ind
 Engelberg HS137;ind
 Wisła HS134;ind
 Zakopane HS140;ind
+Zakopane HS140;team
 Oberstdorf HS137;ind
 Gramish-Partenkirchen HS142;ind
 Innsbruck HS128;ind
 Bischofshofen HS142;ind
-Bad Mitterndorf HS200;ind
-Bad Mitterndorf HS200;ind
-Sapporo HS137;ind
-Sapporo HS137;ind
-Zhangjiakou HS140;ind
-Zhangjiakou HS140;ind
-Whistler HS142;ind
-Whistler HS142;ind
+Bad Mitterndorf HS235;ind
+Bad Mitterndorf HS235;ind
+Sapporo HS134;ind
+Sapporo HS134;ind
 Planica HS240;ind
-Planica HS240;ind
+Planica HS240;team
 Planica HS240;ind
