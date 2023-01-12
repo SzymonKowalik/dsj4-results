@@ -6,7 +6,14 @@
         {% for row in results %}
             <tr>
             {% for col in row %}
+                {% if col == row[2] and col != 'country' %}
+                <td>
+                    <img class="img-flag-small" src="{{ url_for('static', filename='images/flags/'+col+'.svg') }}">
+                    {{ col }}
+                </td>
+                {% else %}
                 <td>{{ col }}</td>
+                {% endif %}
             {% endfor %}
             </tr>
         {% endfor %}

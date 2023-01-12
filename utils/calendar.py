@@ -57,3 +57,24 @@ def calendar_with_tournaments(cursor):
                 info += '*'
             comp_info.append(info)
     return calendar
+
+
+def get_tournament_calendar(calendar, tournaments, tournament_name):
+    """Function searches for given tournament name in tournaments 2d list.
+    Then it appends to new list all competitions which are included in tournament.
+    Return tournament_calendar list ready for html table."""
+    for tournament in tournaments[2:]:
+        name, _, comp_ids, quali_ids = tournament
+        if tournament_name == name:
+            break
+    else:
+        return None
+    tournament_calendar = []
+    for comp_info in calendar:
+        comp_id, comp_name, comp_type, comp_status = comp_info
+        if comp_id in comp_ids:
+            if comp_id in quali_ids:
+                comp_type = f'{comp_type}*'
+            tournament_calendar.append([comp_id, comp_name, comp_type, comp_status])
+    return tournament_calendar
+

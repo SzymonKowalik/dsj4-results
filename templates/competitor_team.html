@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-    <h2>{{ name }}</h2>
+    <h2>{{ name }}<img class="img-flag-big" src="{{ url_for('static', filename='images/flags/' + country + '.svg') }}"></h2>
     <h3>Team Competitions</h3>
     <table>
     {% for row in results[0] %}

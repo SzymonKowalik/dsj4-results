@@ -38,3 +38,14 @@ a {
 a:hover {
     color: lightblue;
 }
+
+.img-flag-small {
+    height: 17px;
+    margin-right: 2px;
+}
+
+.img-flag-big {
+    height: 30px;
+    margin-left: 15px;
+    padding-bottom: 6px;
+}

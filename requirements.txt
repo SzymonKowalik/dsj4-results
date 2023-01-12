@@ -1,2 +1,1 @@
-openpyxl~=3.0.10
 Flask~=2.2.2

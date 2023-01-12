@@ -1,6 +1,6 @@
 from utils.create_database import initialise_tables, process_competition_files
 from utils.classifications import create_all_tournaments_classifications, read_tournaments
-from utils.calendar import calendar_with_tournaments
+from utils.calendar import calendar_with_tournaments, get_tournament_calendar, return_calendar
 from utils.results import individual_competition_results, individual_results, team_results, team_competition_results
 import sqlite3
 from flask import Flask, render_template, request
@@ -42,13 +42,15 @@ def competitor(name):
     if country:
         results = team_results(cur, name)
         template = 'competitor_team.html'
+        country = name
     else:
-        results = individual_results(cur, name)
+        results, country = individual_results(cur, name)
         template = 'competitor_ind.html'
     return render_template(template,
                            tournaments=tournaments,
                            name=name,
-                           results=results)
+                           results=results,
+                           country=country)
 
 
 @app.route('/tournament/<tournament_name>')
@@ -57,10 +59,12 @@ def tournament(tournament_name):
     for tournament in classifications:
         if tournament_name == tournament[0]:
             tournament_data = tournament[1]
+    tournament_calendar = get_tournament_calendar(calendar, tournaments, tournament_name)
     return render_template('tournament.html',
                            tournaments=tournaments,
                            tournament_name=tournament_name,
-                           tournament_data=tournament_data)
+                           tournament_data=tournament_data,
+                           tournament_calendar=tournament_calendar)
 
 
 def refresh(cur, con):
@@ -75,5 +79,6 @@ if __name__ == '__main__':
     cur = con.cursor()
     initialise_tables(cur)
     classifications, tournaments, calendar_all = refresh(cur, con)
+    calendar = return_calendar(cur)
 
     app.run(debug=True)

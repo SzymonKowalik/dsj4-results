@@ -28,7 +28,7 @@ def team_wc_classification(cursor):
                 from both_types
                 group by country)
                 
-                select *, pt - (select max(pt) from classification) as pt_loss
+                select rnk, country, country, pt, pt - (select max(pt) from classification) as pt_loss
                 from classification'''
     cursor.execute(query)
     return 'Team World Cup', cursor.fetchall()
