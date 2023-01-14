@@ -4,11 +4,17 @@
 {% if tournament_calendar %}
     <h3>Tournament Calendar</h3>
     <table>
-        {% for row in tournament_calendar %}
+        {% for competition in tournament_calendar %}
         <tr>
-            {% for field in row %}
-                <td>{{ field }}</td>
-            {% endfor %}
+            <td>{{ competition[0] }}</td>
+            <td>
+                <a href="{{ url_for('competition', comp_id=competition[0],
+                hill_name=competition[1], comp_type=competition[2]) }}">
+                    {{ competition[1] }}
+                </a>
+            </td>
+            <td>{{ competition[2] }}</td>
+            <td>{{ competition[3] }}</td>
         </tr>
         {% endfor %}
     </table>
@@ -36,6 +42,6 @@
     {% endfor %}
     </table>
 {% else %}
-<h4>Tournament has not started yet.</h4>
+    <h4>Tournament has not started yet.</h4>
 {% endif %}
 {% endblock %}

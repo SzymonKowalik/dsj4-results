@@ -1,24 +1,52 @@
 {% extends "base.html" %}
 {% block content %}
-    <h2>{{ name }}<img class="img-flag-big" src="{{ url_for('static', filename='images/flags/' + country + '.svg') }}"></h2>
-    <h3>Team Competitions</h3>
-    <table>
-    {% for row in results[0] %}
-        <tr>
+<!---->
+<h2>{{ name }}<img class="img-flag-big" src="{{ url_for('static', filename='images/flags/' + country + '.svg') }}"></h2>
+<!---->
+<h3>Individual Statistics</h3>
+<table class="table-stats">
+{% for row in stats %}
+    <tr>
         {% for col in row %}
             <td>{{ col }}</td>
         {% endfor %}
-        </tr>
+    </tr>
+{% endfor %}
+</table>
+<!---->
+<h3>Competitors</h3>
+<table>
+{% for row in competitors %}
+    <tr>
+        <td><a href="{{ url_for('competitor', name=row[0]) }}">{{ row[0] }}</a></td>
+        <td class="tournament-classification">{{ row[1] }}</td>
+        <td class="tournament-classification">{{ row[2] }}</td>
+    </tr>
+{% endfor %}
+</table>
+<!---->
+{% if results[0]|length > 1%}
+<h3>Team Competitions</h3>
+<table>
+{% for row in results[0] %}
+    <tr>
+    {% for col in row %}
+        <td>{{ col }}</td>
     {% endfor %}
-    </table>
-    <h3>Individual Competitions</h3>
-    <table>
-    {% for row in results[1] %}
-        <tr>
-        {% for col in row %}
-            <td>{{ col }}</td>
-        {% endfor %}
-        </tr>
+    </tr>
+{% endfor %}
+</table>
+{% endif %}
+<!---->
+<h3>Individual Competitions</h3>
+<table>
+{% for row in results[1] %}
+    <tr>
+    {% for col in row %}
+        <td>{{ col }}</td>
     {% endfor %}
-    </table>
+    </tr>
+{% endfor %}
+</table>
+<!---->
 {% endblock %}

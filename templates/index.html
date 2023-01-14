@@ -1,22 +1,48 @@
 {% extends "base.html" %}
 {% block content %}
-        <h2>Calendar</h2>
-            <table>
-            {% for competition in calendar %}
-                <tr>
-                    <td>{{ competition[0] }}</td>
-                    <td>
-                        <a href="{{ url_for('competition', comp_id=competition[0],
-                        hill_name=competition[1], comp_type=competition[2]) }}">
-                            {{ competition[1] }}
-                        </a>
-                    </td>
-                    <td>{{ competition[2] }}</td>
-                    <td>{{ competition[3] }}</td>
-                    {% for row in competition[4:] %}
-                    <td class="tournament-col">{{ row }}</td>
-                    {% endfor %}
-                </tr>
+<!---->
+<h2>Calendar</h2>
+    <table>
+    {% for competition in calendar %}
+        <tr>
+            <td>{{ competition[0] }}</td>
+            <td>
+                <a href="{{ url_for('competition', comp_id=competition[0],
+                hill_name=competition[1], comp_type=competition[2]) }}">
+                    {{ competition[1] }}
+                </a>
+            </td>
+            <td>{{ competition[2] }}</td>
+            <td>{{ competition[3] }}</td>
+            {% for row in competition[4:] %}
+            <td class="tournament-col">{{ row }}</td>
             {% endfor %}
-            </table>
+        </tr>
+    {% endfor %}
+    </table>
+<!--Tournaments summary-->
+<h3>Season Summary</h3>
+{% for classification in classifications %}
+    {% if classification[1] %}
+        <h4>{{ classification[0] }}</h4>
+        <table>
+            {% for row in classification[1][:5] %}
+            <tr>
+                <td class="tournament-summary-small">{{ row[0] }}</td>
+                <td>
+                    <a href="{{ url_for('competitor', name=row[1]) }}">
+                        {{ row[1] }}
+                    </a>
+                </td>
+                <td class="tournament-summary-medium">
+                    <img class="img-flag-small" src="{{ url_for('static', filename='images/flags/'+row[2]+'.svg') }}">
+                    {{ row[2] }}
+                </td>
+                <td class="tournament-summary-medium">{{ row[3] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+{% endfor %}
+<!---->
 {% endblock %}

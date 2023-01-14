@@ -12,7 +12,6 @@ def clear_results_folder(stats_path):
             os.remove(file)
 
 
-# TODO Fix regex when surname is 3 uppercase letters
 def prepare_file_individual(file_path, comp_type):
     """
        Prepare file for competition results data.
@@ -33,7 +32,7 @@ def prepare_file_individual(file_path, comp_type):
     # Fix splitting when jumper name has maximum length
     # Add a space before country name
     for i, row_content in enumerate(file_content):
-        file_content[i] = re.sub(r"\b[A-Z]{3}\b", r" \g<0>", row_content)
+        file_content[i] = re.sub(r"(.*)(\b[A-Z]{3}\b)(?!.*\b[A-Z]{3}\b)", r"\1 \2", row_content)
 
     # Get individual results into lists
     results = [re.split(r'\s{2,}', line) for line in file_content[4:]]

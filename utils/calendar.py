@@ -71,7 +71,7 @@ def get_tournament_calendar(calendar, tournaments, tournament_name):
         return None
     tournament_calendar = []
     for comp_info in calendar:
-        comp_id, comp_name, comp_type, comp_status = comp_info
+        comp_id, comp_name, comp_type, comp_status, *_ = comp_info
         if comp_id in comp_ids:
             if comp_id in quali_ids:
                 comp_type = f'{comp_type}*'

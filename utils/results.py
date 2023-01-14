@@ -12,7 +12,7 @@ def individual_competition_results(cursor, comp_id):
 def team_competition_results(cursor, comp_id):
     """Retrieve the results of a team competition by competition id.
     This returns the place, team_name and note of the teams."""
-    query = """select place, team_name, country, note
+    query = """select place, country, country, note
                 from team_results where comp_id={}""".format(comp_id)
     cursor.execute(query)
     header_row = ['place', 'name', 'country', 'note']

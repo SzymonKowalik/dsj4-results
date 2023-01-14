@@ -5,7 +5,7 @@ body {
     margin: 10px;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
     margin: 15px;
 }
 
@@ -48,4 +48,24 @@ a:hover {
     height: 30px;
     margin-left: 15px;
     padding-bottom: 6px;
+}
+
+.table-stats td {
+    width: 100px;
+    text-align: center;
+}
+
+.tournament-classification {
+    width: 180px;
+    text-align: center;
+}
+
+.tournament-summary-small {
+    width: 50px;
+    text-align: center;
+}
+
+.tournament-summary-medium {
+    width: 100px;
+    text-align: center;
 }
