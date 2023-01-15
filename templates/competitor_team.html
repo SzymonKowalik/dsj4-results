@@ -5,7 +5,7 @@
 <!---->
 <h3>Individual Statistics</h3>
 <table class="table-stats">
-{% for row in stats %}
+{% for row in ind_stats %}
     <tr>
         {% for col in row %}
             <td>{{ col }}</td>
@@ -13,6 +13,19 @@
     </tr>
 {% endfor %}
 </table>
+<!---->
+{% if team_stats %}
+    <h3>Team Statistics</h3>
+    <table class="table-stats">
+    {% for row in team_stats %}
+        <tr>
+            {% for col in row %}
+                <td>{{ col }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+    </table>
+{% endif %}
 <!---->
 <h3>Competitors</h3>
 <table>

@@ -20,7 +20,8 @@ def main():
     shutil.rmtree(stats_path)
     os.mkdir(stats_path)
     # Remove database
-    os.remove('./data/results.db')
+    if os.path.exists('./data/results.db'):
+        os.remove('./data/results.db')
 
 
 if __name__ == '__main__':

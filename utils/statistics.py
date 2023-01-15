@@ -9,7 +9,7 @@ def individual_stats(cursor, name):
     return [header, *stats]
 
 
-def team_stats(cursor, country):
+def team_ind_stats(cursor, country):
     """Get all individual statistics for given country from database"""
     query = """with jumper_number as (
                     SELECT count(DISTINCT name) from ind_results where country='{}'
@@ -23,6 +23,22 @@ def team_stats(cursor, country):
     stats = cursor.fetchall()
     header = ['Jumpers', 'AVG Place', 'Competitions', 'TOP 30', 'TOP 10', 'TOP 3', 'TOP 1']
     return [header, *stats]
+
+
+def team_team_stats(cursor, country):
+    """Get all team statistics for given country from database"""
+    query = """SELECT ROUND(AVG(place), 1), COUNT(*), COUNT(IIF(place<=8,1,NULL)),
+                    COUNT(IIF(place<=3,1,NULL)), COUNT(IIF(place=1,1,NULL))
+                FROM team_results
+                WHERE country='{}'""".format(country)
+    cursor.execute(query)
+    stats = cursor.fetchall()
+    # If team did not enter any competitions
+    if stats[0][0] is None:
+        return None
+    else:
+        header = ['AVG Place', 'Competitions', 'TOP 8', 'TOP 3', 'TOP 1']
+        return [header, *stats]
 
 
 def team_competitors(cursor, country):

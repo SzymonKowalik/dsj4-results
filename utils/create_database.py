@@ -34,13 +34,13 @@ def prepare_file_individual(file_path, comp_type):
     for i, row_content in enumerate(file_content):
         file_content[i] = re.sub(r"(.*)(\b[A-Z]{3}\b)(?!.*\b[A-Z]{3}\b)", r"\1 \2", row_content)
 
+    # Gets hill name from second line
+    hill_name = re.sub(r'(^.*?K[0-9]+|HS[0-9]+)(.*?$)', r'\1', file_content[1])
+
     # Get individual results into lists
     results = [re.split(r'\s{2,}', line) for line in file_content[4:]]
 
     if comp_type == 'ind':
-        # Gets hill name from second line
-        hill_name = file_content[1].replace(' Competition Final Results', '')
-
         # Fill rows with equal position
         for i, row in enumerate(results):
             if '.' not in row[0]:
@@ -60,9 +60,6 @@ def prepare_file_individual(file_path, comp_type):
             row[6] = float(row[6])
 
     elif comp_type == 'qual':
-        # Gets hill name from second line
-        hill_name = file_content[1].replace(' Qualification Results', '')
-
         # Fill rows with equal position
         for i, row in enumerate(results):
             if '.' not in row[0]:
@@ -99,7 +96,7 @@ def prepare_file_team(file_path):
         file_content = [line.strip() for line in file if line != '\n']
 
         # Gets hill name from second line
-        hill_name = file_content[1].replace(' Competition Final Results', '')
+        hill_name = re.sub(r'(^.*?K[0-9]+|HS[0-9]+)(.*?$)', r'\1', file_content[1])
 
         # Get individual results into lists
         results = [re.split(r'\s{2,}', line) for line in file_content[3:]]

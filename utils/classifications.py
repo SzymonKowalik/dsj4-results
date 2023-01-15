@@ -66,11 +66,10 @@ def tournament_classification(cursor, name, comp_type, competition_ids, qualific
     # Rounds results based on competition type
     for competitor in classification:
         if comp_type == 'note':
-            *row, note = competitor
-            results.append((*row, f'{note:.1f}'))
+            results.append(competitor)
         else:
-            *row, points = competitor
-            results.append([*row, f'{points:.0f}'])
+            *row, points, points_loss = competitor
+            results.append([*row, int(points), int(points_loss)])
     return name, results
 
 

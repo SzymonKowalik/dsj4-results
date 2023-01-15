@@ -1,8 +1,9 @@
 from utils.create_database import initialise_tables, process_competition_files
 from utils.classifications import create_all_tournaments_classifications, read_tournaments
-from utils.calendar import calendar_with_tournaments, get_tournament_calendar, return_calendar
+from utils.calendar import calendar_with_tournaments, get_tournament_calendar
 from utils.results import individual_competition_results, individual_results, team_results, team_competition_results
-from utils.statistics import individual_stats, team_stats, team_competitors, individual_all_tournaments
+from utils.statistics import individual_stats, team_ind_stats, team_competitors, individual_all_tournaments,\
+    team_team_stats
 import sqlite3
 from flask import Flask, render_template, request
 import re
@@ -25,7 +26,7 @@ def competition(comp_id):
     classifications, tournaments, calendar_all = refresh(cur, con)
     hill_name = request.args.get('hill_name')
     comp_type = request.args.get('comp_type')
-    if comp_type == 'ind':
+    if comp_type in ('ind', 'ind*'):
         results = individual_competition_results(cur, comp_id)
     else:
         results = team_competition_results(cur, comp_id)
@@ -43,26 +44,29 @@ def competitor(name):
     if country:
         results = team_results(cur, name)
         template = 'competitor_team.html'
-        stats = team_stats(cur, name)
+        ind_stats = team_ind_stats(cur, name)
+        team_stats = team_team_stats(cur, name)
         competitors = team_competitors(cur, name)
+
         return render_template(template,
                                tournaments=tournaments,
                                name=name,
                                results=results,
                                country=name,
-                               stats=stats,
+                               ind_stats=ind_stats,
+                               team_stats=team_stats,
                                competitors=competitors)
     else:
         results, country = individual_results(cur, name)
         template = 'competitor_ind.html'
-        stats = individual_stats(cur, name)
+        ind_stats = individual_stats(cur, name)
         tournament_results = individual_all_tournaments(cur, tournaments, name)
         return render_template(template,
                                tournaments=tournaments,
                                name=name,
                                results=results,
                                country=country,
-                               stats=stats,
+                               stats=ind_stats,
                                tournament_results=tournament_results)
 
 
