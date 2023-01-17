@@ -36,7 +36,14 @@ Ski Flying Cup;0;4,15,16,19,21
 *Team competition will not work with point type tournaments.\
 Competitors will be rewarded 0 points.
 
+## Reset application
+To clear results and reset database open
+`reset_all_results.py` and type `YES`\
+This will empty your DSJ4 Stats folder making copy in `.\data\stats_copy` folder.\
+Current database will also be deleted.
+
 ## Requirements
+* DSJ4 in English language
 * Python 3
 * The required packages are listed in `requirements.txt`.
 * DSJ4 Stats folder (C:\Users\\{user}\Documents\Deluxe Ski Jump 4)

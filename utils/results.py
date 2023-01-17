@@ -1,17 +1,24 @@
 
 def individual_competition_results(cursor, comp_id):
-    """Retrieve the results of an individual competition by competition id.
-    This returns the place, name, country, jump1, jump2 and note of the individual competitors. """
+    """Retrieve the results of an individual competition by competition id."""
     query = """select place, name, country, jump1, jump2, note from ind_results
-                where comp_id={} and comp_type != 'qual'""".format(comp_id)
+                where comp_id={} and comp_type = 'ind'""".format(comp_id)
     cursor.execute(query)
     header_row = ['place', 'name', 'country', 'jump1', 'jump2', 'note']
     return [header_row, *cursor.fetchall()]
 
 
+def qualifying_results(cursor, comp_id):
+    """Retrieve the results of a qualifying by competition id."""
+    query = """select place, name, country, jump1, note from ind_results
+                    where comp_id={} and comp_type = 'qual'""".format(comp_id)
+    cursor.execute(query)
+    header_row = ['place', 'name', 'country', 'jump', 'note']
+    return [header_row, *cursor.fetchall()]
+
+
 def team_competition_results(cursor, comp_id):
-    """Retrieve the results of a team competition by competition id.
-    This returns the place, team_name and note of the teams."""
+    """Retrieve the results of a team competition by competition id."""
     query = """select place, country, country, note
                 from team_results where comp_id={}""".format(comp_id)
     cursor.execute(query)
@@ -19,10 +26,18 @@ def team_competition_results(cursor, comp_id):
     return [header_row, *cursor.fetchall()]
 
 
+def team_ind_competition_results(cursor, comp_id):
+    """Retrieve the individual results of a team competition by competition id."""
+    query = """select rank() over(order by note desc) as ind_rank, name, 
+                country, jump1, jump2, note, place from ind_results
+                where comp_id={} order by ind_rank""".format(comp_id)
+    cursor.execute(query)
+    header_row = ['ind_rank', 'name', 'country', 'jump1', 'jump2', 'note', 'place']
+    return [header_row, *cursor.fetchall()]
+
+
 def individual_results(cursor, name):
     """Retrieve the results of an individual athlete by their name.
-    This returns the comp_id, comp_type, hill, place, jump1, jump2 and note of the individual athlete.
-    And country that this competitor is from.
     The results are not retrieved for qualification rounds."""
     query = """select comp_id, comp_type, hill, place, jump1, jump2, note
                 from ind_results join competitions using(comp_id, comp_type)

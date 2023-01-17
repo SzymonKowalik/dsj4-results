@@ -1,7 +1,8 @@
 from utils.create_database import initialise_tables, process_competition_files
 from utils.classifications import create_all_tournaments_classifications, read_tournaments
 from utils.calendar import calendar_with_tournaments, get_tournament_calendar
-from utils.results import individual_competition_results, individual_results, team_results, team_competition_results
+from utils.results import individual_competition_results, individual_results, team_results, team_competition_results,\
+    team_ind_competition_results, qualifying_results
 from utils.statistics import individual_stats, team_ind_stats, team_competitors, individual_all_tournaments,\
     team_team_stats
 import sqlite3
@@ -27,13 +28,21 @@ def competition(comp_id):
     hill_name = request.args.get('hill_name')
     comp_type = request.args.get('comp_type')
     if comp_type in ('ind', 'ind*'):
-        results = individual_competition_results(cur, comp_id)
+        ind_results = individual_competition_results(cur, comp_id)
+        qual_results = qualifying_results(cur, comp_id)
+        return render_template('competition_ind.html',
+                               tournaments=tournaments,
+                               ind_results=ind_results,
+                               qual_results=qual_results,
+                               hill_name=hill_name)
     else:
-        results = team_competition_results(cur, comp_id)
-    return render_template('competition.html',
-                           tournaments=tournaments,
-                           results=results,
-                           hill_name=hill_name)
+        team_results = team_competition_results(cur, comp_id)
+        ind_results = team_ind_competition_results(cur, comp_id)
+        return render_template('competition_team.html',
+                               tournaments=tournaments,
+                               team_results=team_results,
+                               ind_results=ind_results,
+                               hill_name=hill_name)
 
 
 @app.route('/competitor/<name>')

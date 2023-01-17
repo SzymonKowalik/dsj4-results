@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+{% if team_results|length > 1 %}
+    <h2>{{ hill_name }}</h2>
+    <h3>Team classification</h3>
+    <table>
+    {% for row in team_results %}
+        <tr>
+            <td>{{ row[0] }}</td>
+            {% if row[1] != 'name' %}
+                <td>
+                    <a href="{{ url_for('competitor', name=row[1])}}">
+                    {{ row[1] }}
+                    </a>
+                </td>
+            {% else %}
+                <td>{{ row[1] }}</td>
+            {% endif %}
+            {% if row[2] != 'country' %}
+                <td>
+                    <img class="img-flag-small" src="{{ url_for('static', filename='images/flags/'+row[2]+'.svg') }}">
+                    {{ row[2] }}
+                </td>
+            {% else %}
+                <td>{{ row[2] }}</td>
+            {% endif %}
+            {% for col in row[3:] %}
+                <td>{{ col }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+    </table>
+<!---->
+    <h3>Unofficial individual results</h3>
+    <table>
+        {% for row in ind_results %}
+            <tr>
+                <td>{{ row[0] }}</td>
+                {% if row[1] != 'name' %}
+                    <td>
+                        <a href="{{ url_for('competitor', name=row[1])}}">
+                        {{ row[1] }}
+                        </a>
+                    </td>
+                {% else %}
+                    <td>{{ row[1] }}</td>
+                {% endif %}
+                {% if row[2] != 'country' %}
+                    <td>
+                        <img class="img-flag-small" src="{{ url_for('static', filename='images/flags/'+row[2]+'.svg') }}">
+                        {{ row[2] }}
+                    </td>
+                {% else %}
+                    <td>{{ row[2] }}</td>
+                {% endif %}
+                {% for col in row[3:] %}
+                    <td>{{ col }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </table>
+{% else %}
+    <h2>Competition has not been finished yet.</h2>
+{% endif %}
+{% endblock %}

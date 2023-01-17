@@ -72,22 +72,25 @@ def individual_all_tournaments(cursor, tournaments, name):
         tournament_name, type, comp_ids, qual_ids = tournament
         if type == '0':
             type = 'points'
-            round = 0
         else:
             type = 'note'
-            round = 1
         query = """with tournament as (
-                        select rank() over(order by sum({}) desc) as rnk, name, round(sum({}), {}) as pt
+                        select rank() over(order by sum({}) desc) as rnk, name, round(sum({}), 1) as pt
                         from ind_results where comp_id in {} and comp_type in ('ind', 'team') or
                         comp_id in {} and comp_type = 'qual' group by name order by pt desc
                     )
 
-                    select pt, rnk from tournament where name='{}'""".format(type, type, round, comp_ids, qual_ids, name)
+                    select pt, rnk from tournament where name='{}'""".format(type, type, comp_ids, qual_ids, name)
         cursor.execute(query)
         classification = cursor.fetchall()
         # If classification has competitions added or not
         if classification:
-            results.append([tournament_name, *classification])
+            if type == 'points':
+                # Convert points to Integer to avoid .0 in table, data from database in list(tuple(...))
+                points, place = classification[0]
+                results.append([tournament_name, [int(points), place]])
+            else:
+                results.append([tournament_name, *classification])
         else:
             results.append([tournament_name, ('-', '-')])
     return [['Tournament Name', ('Points/Note', 'Place')], *results]
