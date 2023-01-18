@@ -66,7 +66,7 @@ def individual_all_tournaments(cursor, tournaments, name):
 
                 select pt, rnk from world_cup where name='{}'""".format(name)
     cursor.execute(query)
-    results.append(['World Cup', *cursor.fetchall()])
+    results.append(['Individual World Cup', *cursor.fetchall()])
     # Rest of tournaments
     for tournament in tournaments[2:]:
         tournament_name, type, comp_ids, qual_ids = tournament
@@ -94,4 +94,3 @@ def individual_all_tournaments(cursor, tournaments, name):
         else:
             results.append([tournament_name, ('-', '-')])
     return [['Tournament Name', ('Points/Note', 'Place')], *results]
-

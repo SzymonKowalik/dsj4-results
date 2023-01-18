@@ -16,6 +16,16 @@ h1, h2, h3, h4 {
     align-content: center;
 }
 
+.nav-menu {
+    color: #999;
+    margin: auto 10px;
+    cursor: pointer;
+}
+
+.disabled {
+    display: none;
+}
+
 table, td, tr {
     padding: 5px 10px;
     border: solid 1px #444;
@@ -23,6 +33,10 @@ table, td, tr {
 
 table {
     border-collapse: collapse;
+}
+
+.summary-table {
+    width: 500px;
 }
 
 .tournament-col {

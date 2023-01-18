@@ -1,30 +1,55 @@
 {% extends "base.html" %}
+{% block head %}
+<style>
+    table {
+        width: 700px;
+    }
+</style>
+{% endblock %}
+{% block navbar %}
+    <div class="nav-menu operator">Statistics</div>
+    <div class="nav-menu operator">Results</div>
+{% endblock %}
 {% block content %}
 <!---->
-<h2>{{ name }}<img class="img-flag-big" src="{{ url_for('static', filename='images/flags/' + country + '.svg') }}"></h2>
+<h2>
+    {{ name }}
+    <img class="img-flag-big" src="{{ url_for('static', filename='images/flags/' + country + '.svg') }}">
+</h2>
 <!---->
-<h3>Statistics</h3>
-<table class="table-stats">
-{% for row in stats %}
-    <tr>
-        {% for col in row %}
-            <td>{{ col }}</td>
-        {% endfor %}
-    </tr>
-{% endfor %}
+<div class="content statistics">
+    <h3>Statistics</h3>
+    <table class="table-stats">
+    {% for row in stats %}
+        <tr>
+            {% for col in row %}
+                <td>{{ col }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+    </table>
+    <!---->
+    <h3>Tournament Results</h3>
+    <table>
+    {% for row in tournament_results %}
+        <tr>
+            <td>
+                {% if row[0] != 'Tournament Name' %}
+                <a href="{{ url_for('tournament', tournament_name=row[0]) }}">
+                    {{ row[0] }}
+                </a>
+                {% else %}
+                {{ row[0] }}
+                {% endif %}
+            </td>
+            <td class="tournament-classification">{{ row[1][0] }}</td>
+            <td class="tournament-classification">{{ row[1][1] }}</td>
+        </tr>
+    {% endfor %}
 </table>
+</div>
 <!---->
-<h3>Tournament Results</h3>
-<table>
-{% for row in tournament_results %}
-    <tr>
-        <td>{{ row[0] }}</td>
-        <td class="tournament-classification">{{ row[1][0] }}</td>
-        <td class="tournament-classification">{{ row[1][1] }}</td>
-    </tr>
-{% endfor %}
-</table>
-<!---->
+<div class="content results disabled">
 <h3>Competition Results</h3>
 <table>
 {% for row in results %}

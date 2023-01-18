@@ -1,6 +1,11 @@
 {% extends "base.html" %}
+{% block navbar %}
+    <div class="nav-menu operator">Calendar</div>
+    <div class="nav-menu operator">Summary</div>
+{% endblock %}
 {% block content %}
 <!---->
+<div class="content calendar">
 <h2>Calendar</h2>
     <table>
     {% for competition in calendar %}
@@ -20,12 +25,16 @@
         </tr>
     {% endfor %}
     </table>
+</div>
 <!--Tournaments summary-->
+<div class="content summary disabled">
 <h3>Season Summary</h3>
 {% for classification in classifications %}
     {% if classification[1] %}
-        <h4>{{ classification[0] }}</h4>
-        <table>
+        <h4><a href="{{ url_for('tournament', tournament_name=classification[0]) }}">
+            {{ classification[0] }}
+        </a></h4>
+        <table class="summary-table">
             {% for row in classification[1][:5] %}
             <tr>
                 <td class="tournament-summary-small">{{ row[0] }}</td>
@@ -44,5 +53,5 @@
         </table>
     {% endif %}
 {% endfor %}
-<!---->
+</div>
 {% endblock %}
