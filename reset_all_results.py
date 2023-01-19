@@ -5,7 +5,7 @@ import shutil
 def main():
     """Clears DSJ4 Stats folder, makes copy of results, removes database."""
     # Confirmation
-    confirm = input('Type "YES" to remove results and reset configurations')
+    confirm = input('Type "YES" to remove results and reset configurations ')
     if confirm != 'YES':
         raise Exception('Program will not reset')
     # Make backup of stats folder
@@ -22,7 +22,6 @@ def main():
     # Remove database
     if os.path.exists('./data/results.db'):
         os.remove('./data/results.db')
-
 
 if __name__ == '__main__':
     main()

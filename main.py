@@ -4,7 +4,7 @@ from utils.calendar import calendar_with_tournaments, get_tournament_calendar
 from utils.results import individual_competition_results, individual_results, team_results, team_competition_results,\
     team_ind_competition_results, qualifying_results
 from utils.statistics import individual_stats, team_ind_stats, team_competitors, individual_all_tournaments,\
-    team_team_stats
+    team_team_stats, competitors_stats
 import sqlite3
 from flask import Flask, render_template, request
 import re
@@ -15,11 +15,13 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     classifications, tournaments, calendar_all = refresh(cur, con)
+    stats = competitors_stats(cur)
     return render_template(
         'index.html',
         calendar=calendar_all,
         tournaments=tournaments,
-        classifications=classifications)
+        classifications=classifications,
+        stats=stats)
 
 
 @app.route('/competition/<comp_id>')
@@ -98,7 +100,6 @@ def refresh(cur, con):
     classifications, tournaments = create_all_tournaments_classifications(cur, read_tournaments())
     calendar_all = calendar_with_tournaments(cur)
     return classifications, tournaments, calendar_all
-
 
 if __name__ == '__main__':
     con = sqlite3.connect('./data/results.db', check_same_thread=False)

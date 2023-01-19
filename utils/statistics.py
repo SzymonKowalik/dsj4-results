@@ -94,3 +94,15 @@ def individual_all_tournaments(cursor, tournaments, name):
         else:
             results.append([tournament_name, ('-', '-')])
     return [['Tournament Name', ('Points/Note', 'Place')], *results]
+
+
+def competitors_stats(cursor):
+    """Function returns all competitors stats from database to display on main page."""
+    query = """select rank() over(order by sum(points) desc) as rnk, name, country, sum(points),
+                count(iif(place=1,1,NULL)), count(iif(place=2,1,NULL)), count(iif(place=3,1,NULL)),
+                count(iif(place<=10,1,NULL)), count(iif(place<=30,1,NULL)), round(avg(place), 1)
+                from ind_results where comp_type='ind' group by name order by rnk"""
+    cursor.execute(query)
+    stats = cursor.fetchall()
+    return [['Ranking', 'Name', 'Country', 'Points', '1st Place', '2nd Place',
+             '3rd Place', 'TOP 10s', 'TOP 30s', 'AVG Place'], *stats]

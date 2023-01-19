@@ -3,7 +3,32 @@ body {
     color: white;
     font-family: Bahnschrift;
     margin: 10px;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
+
+/* Scrollbar */
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #222;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #444;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #4A4A4A;
+}
+
+/* Rest of pages */
 
 h1, h2, h3, h4 {
     margin: 15px;
@@ -66,6 +91,10 @@ a:hover {
 
 .table-stats td {
     width: 100px;
+    text-align: center;
+}
+
+.center-text {
     text-align: center;
 }
 
