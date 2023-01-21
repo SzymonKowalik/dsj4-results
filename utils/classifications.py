@@ -88,11 +88,9 @@ def prepare_tournament_info(tournament):
     """
     Prepare tournament information for database by checking for correct format of tournament data
     and splitting the competition and qualification ids.
-
     Parameters:
         tournament: Tuple of tournament data in format (name, comp_type, competition_ids, qualification_ids)
                 or  (name, comp_type, competition_ids)
-
     Returns:
         tuple : Tuple containing the name, comp_type, tuple of competition_ids and tuple of qualification_ids.
     """

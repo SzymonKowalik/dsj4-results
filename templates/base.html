@@ -14,7 +14,7 @@
       <div class="navbar-brand"><a class="nav-link" href="{{ url_for('index') }}">DSJ4</a></div>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-            {% for tournament in tournaments %}
+          {% for tournament in tournaments %}
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('tournament', tournament_name=tournament[0]) }}">
                 {{ tournament[0] }}

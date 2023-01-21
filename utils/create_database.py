@@ -140,14 +140,8 @@ def prepare_file_team(file_path):
     return hill_name, team_comp_results, ind_comp_results
 
 
-def get_results_path(stats_path):
-    """
-    Returns a sorted list of file names in the DSJ4 stats directory.
-    Parameters:
-        stats_path (str): Path to the DSJ4 stats directory.
-    Returns:
-        list: List of file names (str).
-    """
+def get_results_path(stats_path: str) -> list[str]:
+    """Returns a sorted list of file names in the DSJ4 stats directory."""
     files = [file.name for file in os.scandir(stats_path)]
     files.sort(key=lambda s: os.path.getmtime(os.path.join(stats_path, s)))
     return [f'{stats_path}/{file}' for file in files]
@@ -183,7 +177,6 @@ def process_competition_files(cursor, db_con):
     comp_id = 1
     for file_name in file_names:
         comp_type = get_competition_type(file_name)
-        file_path = f"{stats_path}\{file_name}"
         try:
             if comp_type == 'team':
                 file_data = prepare_file_team(file_name)
@@ -194,8 +187,7 @@ def process_competition_files(cursor, db_con):
                 add_individual_competition_results(cursor, db_con, comp_id, file_data)
                 print(f'Added ind {comp_type} with id={comp_id}')
         except sqlite3.IntegrityError as e:
-            # print(e)
-            pass
+            print(e)
         if comp_type != 'qual':
             comp_id += 1
 
@@ -215,7 +207,7 @@ def add_individual_competition_results(cursor, db_con, comp_id, file_data):
     if cursor.fetchone()[0] != 0:
         raise sqlite3.IntegrityError(
             f'Competition with comp_id={comp_id} and comp_type={comp_type} has already been added.')
-
+    # Insert to database
     insert_competitions = f"INSERT INTO competitions (comp_id, comp_type, hill) VALUES ('{comp_id}', '{comp_type}', '{hill_name}')"
     insert_results = 'INSERT INTO ind_results (comp_id, comp_type, place, number, name, country, jump1, jump2, note, points) VALUES '
     for row in results:
@@ -244,7 +236,7 @@ def add_team_competition_results(cursor, db_con, comp_id, file_data):
     cursor.execute(f"SELECT count(*) FROM competitions where comp_id='{comp_id}'")
     if cursor.fetchone()[0] != 0:
         raise sqlite3.IntegrityError(f"Competition with comp_id={comp_id} and comp_type=team has already been added.")
-
+    # Insert to database
     insert_competitions = f"INSERT INTO competitions (comp_id, comp_type, hill) VALUES ('{comp_id}', 'team', '{hill_name}')"
     insert_ind_results = 'INSERT INTO ind_results (comp_id, comp_type, place, number, name, country, jump1, jump2, note, points) VALUES '
     for row in ind_comp_results:

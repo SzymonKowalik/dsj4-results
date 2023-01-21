@@ -60,27 +60,27 @@
 <!---->
 <div class="content results disabled">
     {% if results[0]|length > 1%}
-    <h3>Team Competitions</h3>
-    <table>
-    {% for row in results[0] %}
-        <tr>
-        {% for col in row %}
-            <td>{{ col }}</td>
+        <h3>Team Competitions</h3>
+        <table>
+        {% for row in results[0] %}
+            <tr>
+            {% for col in row %}
+                <td>{{ col }}</td>
+            {% endfor %}
+            </tr>
         {% endfor %}
-        </tr>
-    {% endfor %}
-    </table>
+        </table>
     {% endif %}
     <!---->
     <h3>Individual Competitions</h3>
     <table>
-    {% for row in results[1] %}
-        <tr>
-        {% for col in row %}
-            <td>{{ col }}</td>
+        {% for row in results[1] %}
+            <tr>
+            {% for col in row %}
+                <td>{{ col }}</td>
+            {% endfor %}
+            </tr>
         {% endfor %}
-        </tr>
-    {% endfor %}
     </table>
 </div>
 {% endblock %}

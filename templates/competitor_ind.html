@@ -50,15 +50,15 @@
 </div>
 <!---->
 <div class="content results disabled">
-<h3>Competition Results</h3>
-<table>
-{% for row in results %}
-    <tr>
-    {% for col in row %}
-        <td>{{ col }}</td>
+    <h3>Competition Results</h3>
+    <table>
+    {% for row in results %}
+        <tr>
+        {% for col in row %}
+            <td>{{ col }}</td>
+        {% endfor %}
+        </tr>
     {% endfor %}
-    </tr>
-{% endfor %}
-</table>
+    </table>
 </div>
 {% endblock %}

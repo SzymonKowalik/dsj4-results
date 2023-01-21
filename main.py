@@ -9,12 +9,15 @@ import sqlite3
 from flask import Flask, render_template, request
 import re
 
+# Initialise flask app and db connection
 app = Flask(__name__)
+con = sqlite3.connect('./data/results.db', check_same_thread=False)
+cur = con.cursor()
 
 
 @app.route('/')
 def index():
-    classifications, tournaments, calendar_all = refresh(cur, con)
+    classifications, tournaments, calendar_all = refresh()
     stats = competitors_stats(cur)
     return render_template(
         'index.html',
@@ -26,7 +29,7 @@ def index():
 
 @app.route('/competition/<comp_id>')
 def competition(comp_id):
-    classifications, tournaments, calendar_all = refresh(cur, con)
+    classifications, tournaments, calendar_all = refresh()
     hill_name = request.args.get('hill_name')
     comp_type = request.args.get('comp_type')
     if comp_type in ('ind', 'ind*'):
@@ -49,7 +52,7 @@ def competition(comp_id):
 
 @app.route('/competitor/<name>')
 def competitor(name):
-    classifications, tournaments, calendar_all = refresh(cur, con)
+    classifications, tournaments, calendar_all = refresh()
     # Regex for team as name
     country = re.search(r"^[A-Z]{3}$", name)
     if country:
@@ -58,7 +61,6 @@ def competitor(name):
         ind_stats = team_ind_stats(cur, name)
         team_stats = team_team_stats(cur, name)
         competitors = team_competitors(cur, name)
-
         return render_template(template,
                                tournaments=tournaments,
                                name=name,
@@ -83,7 +85,7 @@ def competitor(name):
 
 @app.route('/tournament/<tournament_name>')
 def tournament(tournament_name):
-    classifications, tournaments, calendar_all = refresh(cur, con)
+    classifications, tournaments, calendar_all = refresh()
     for tournament in classifications:
         if tournament_name == tournament[0]:
             tournament_data = tournament[1]
@@ -95,15 +97,13 @@ def tournament(tournament_name):
                            tournament_calendar=tournament_calendar)
 
 
-def refresh(cur, con):
+def refresh():
     process_competition_files(cur, con)
     classifications, tournaments = create_all_tournaments_classifications(cur, read_tournaments())
     calendar_all = calendar_with_tournaments(cur)
     return classifications, tournaments, calendar_all
 
+
 if __name__ == '__main__':
-    con = sqlite3.connect('./data/results.db', check_same_thread=False)
-    cur = con.cursor()
     initialise_tables(cur)
-    classifications, tournaments, calendar_all = refresh(cur, con)
     app.run(debug=True)
