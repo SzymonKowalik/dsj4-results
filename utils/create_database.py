@@ -4,14 +4,6 @@ import sqlite3
 from utils.point_systems import DEFAULT_POINTS_IND, DEFAULT_POINTS_TEAM
 
 
-def clear_results_folder(stats_path):
-    """ Removes unnecessary files from the project results folder.
-    Parameters: stats_path (str): Path to the directory to clean."""
-    for file in os.scandir(stats_path):
-        if ' after ' in file.name:
-            os.remove(file)
-
-
 def prepare_file_individual(file_path, comp_type):
     """
        Prepare file for competition results data.
@@ -150,26 +142,25 @@ def get_results_path(stats_path: str) -> list[str]:
 def get_competition_type(file_name):
     """Converts competition type from file name
     into format used in code."""
-    if 'Team' in file_name:
+    if any(x in file_name for x in ['Standings', 'Trial']):
+        return None
+    elif 'Team' in file_name:
         return 'team'
     elif 'Competition' in file_name:
         return 'ind'
     elif 'Qualification' in file_name:
         return 'qual'
-    else:
-        raise ValueError('Wrong file in DSJ4 stats folder')
 
 
 def process_competition_files(cursor, db_con):
-    """
-    Processes ski jump competition files and stores the data into a database.
-    This function uses the current logged in user's Documents/Deluxe Ski Jump 4/Stats folder as the default location to look for ski jump files.
+    """Processes ski jump competition files and stores the data into a database.
+    This function uses the current logged-in user's Documents/Deluxe Ski Jump 4/Stats
+     folder as the default location to look for ski jump files.
     It then uses the passed cursor and db_con to add the data to the database.
 
     Parameters:
         cursor: cursor object to execute SQL commands.
-        db_con: connection object to the database.
-    """
+        db_con: connection object to the database."""
     current_user = os.getlogin()
     stats_path = rf'C:\Users\{current_user}\Documents\Deluxe Ski Jump 4\Stats'
     file_names = get_results_path(stats_path)
@@ -177,6 +168,8 @@ def process_competition_files(cursor, db_con):
     comp_id = 1
     for file_name in file_names:
         comp_type = get_competition_type(file_name)
+        if comp_type is None:
+            continue
         try:
             if comp_type == 'team':
                 file_data = prepare_file_team(file_name)

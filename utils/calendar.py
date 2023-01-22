@@ -16,7 +16,7 @@ def return_calendar(cursor):
     Returns an official calendar of ski jumping competitions by combining planned and completed competitions.
     Using the provided cursor, the function fetches the completed competitions from the database,
     and the planned calendar from the external source,
-    Then it combine those and creating a official calendar of ski jumping competitions."""
+    Then it combine those and creating an official calendar of ski jumping competitions."""
     planned_calendar = read_planned_calendar()
     cursor.execute("SELECT hill, comp_type FROM competitions where comp_type != 'qual'")
     actual_calendar = [[hill[0], hill[1]] for hill in cursor.fetchall()]
@@ -49,11 +49,11 @@ def calendar_with_tournaments(cursor):
         name, comp_type, competition_ids, qualification_ids = tournament
         calendar[0].append(name)
         for comp_info in calendar[1:]:
-            id = comp_info[0]
+            comp_id = comp_info[0]
             info = ''
-            if id in competition_ids:
+            if comp_id in competition_ids:
                 info += 'X'
-            if id in qualification_ids:
+            if comp_id in qualification_ids:
                 info += '*'
             comp_info.append(info)
     return calendar
@@ -77,4 +77,3 @@ def get_tournament_calendar(calendar, tournaments, tournament_name):
                 comp_type = f'{comp_type}*'
             tournament_calendar.append([comp_id, comp_name, comp_type, comp_status])
     return tournament_calendar
-

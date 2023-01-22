@@ -69,23 +69,22 @@ def individual_all_tournaments(cursor, tournaments, name):
     results.append(['Individual World Cup', *cursor.fetchall()])
     # Rest of tournaments
     for tournament in tournaments[2:]:
-        tournament_name, type, comp_ids, qual_ids = tournament
-        if type == '0':
-            type = 'points'
+        tournament_name, comp_type, comp_ids, qual_ids = tournament
+        if comp_type == '0':
+            comp_type = 'points'
         else:
-            type = 'note'
+            comp_type = 'note'
         query = """with tournament as (
                         select rank() over(order by sum({}) desc) as rnk, name, round(sum({}), 1) as pt
                         from ind_results where comp_id in {} and comp_type in ('ind', 'team') or
                         comp_id in {} and comp_type = 'qual' group by name order by pt desc
                     )
-
-                    select pt, rnk from tournament where name='{}'""".format(type, type, comp_ids, qual_ids, name)
+                    select pt, rnk from tournament where name='{}'""".format(comp_type, comp_type, comp_ids, qual_ids, name)
         cursor.execute(query)
         classification = cursor.fetchall()
         # If classification has competitions added or not
         if classification:
-            if type == 'points':
+            if comp_type == 'points':
                 # Convert points to Integer to avoid .0 in table, data from database in list(tuple(...))
                 points, place = classification[0]
                 results.append([tournament_name, [int(points), place]])
