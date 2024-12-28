@@ -13,6 +13,7 @@ import re
 app = Flask(__name__)
 con = sqlite3.connect('./data/results.db', check_same_thread=False)
 cur = con.cursor()
+initialise_tables(cur)
 
 
 @app.route('/')
@@ -105,5 +106,4 @@ def refresh():
 
 
 if __name__ == '__main__':
-    initialise_tables(cur)
     app.run(debug=True)

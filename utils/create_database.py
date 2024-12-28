@@ -257,3 +257,4 @@ def initialise_tables(cursor):
                    'note float(4,1), points INTEGER)')
     cursor.execute('CREATE TABLE IF NOT EXISTS competitions (id INTEGER PRIMARY KEY AUTOINCREMENT, comp_id INTEGER, '
                    'comp_type varchar(4), hill varchar(50))')
+    cursor.connection.commit()
