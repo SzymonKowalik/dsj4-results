@@ -1,0 +1,87 @@
+/* Table specific styles */
+.standings-calendar-table, .standings-classification-table {
+    font-family: "Inter Bold";
+    font-size: 18px;
+    border-collapse: collapse;
+    border-spacing: 0 6px;
+    border-collapse: separate; /* Required for border-spacing to work */
+    margin-bottom: 10px;
+}
+
+.standings-calendar-table td, .standings-classification-table td {
+    padding: 0 12px;
+    height: 36px;
+}
+
+
+.standings-calendar-table__number {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+    width: 60px;
+    text-align: center;
+}
+
+.standings-calendar-table__hill {
+    background-color: var(--primary-dark);
+    color: var(--primary-light);
+    width: auto;
+}
+
+.standings-calendar-table__type {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+    flex-direction: row;
+    width: 75px;
+}
+
+.standings-calendar-table__type img {
+    height: 90%;
+    width: 90%;
+}
+
+.standings-calendar-table__completed {
+    background-color: var(--comp-completed);
+    width: 40px;
+}
+
+.standings-calendar-table__planned {
+    background-color: var(--comp-planned);
+    width: 40px;
+}
+
+.standings-classification-table__position {
+    background-color: var(--position);
+    color: var(--primary-light);
+    width: 60px;
+    text-align: center;
+}
+
+.standings-classification-table__name {
+    background-color: var(--primary-dark);
+    color: var(--primary-light);
+    width: 300px;
+}
+
+.standings-classification-table__country {
+    background-color: var(--primary-dark);
+    color: var(--primary-light);
+    display: flex;
+    justify-content: flex-end; /* Aligns the image to the right */
+    align-items: center; /* Centers the image vertically */
+    width: 100px;
+    height: 36px;
+}
+
+.standings-classification-table__points {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+    width: 100px;
+    text-align: center;
+}
+
+.standings-classification-table__points-behind {
+    background-color: var(--primary-dark);
+    color: var(--primary-light);
+    width: 90px;
+    text-align: center;
+}

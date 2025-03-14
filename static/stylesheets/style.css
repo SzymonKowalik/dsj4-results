@@ -1,7 +1,29 @@
+@font-face {
+    font-family: 'Inter Bold';
+    src: url('/static/fonts/inter_bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Inter Semi Bold';
+    src: url('/static/fonts/inter_semibold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+:root {
+    --primary-dark: #191919;
+    --secondary-dark: #4A4A4A;
+    --primary-light: #E8E8E8;
+    --position: #8B6F11;
+    --comp-completed: #4FB817;
+    --comp-planned: #B8A517;
+}
+
 body {
-    background-color: #222;
-    color: white;
-    font-family: Bahnschrift;
+    background-color: #262626;
+    color: var(--primary-light);
+    font-family: "Inter Semi Bold";
     margin: 10px;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -30,8 +52,30 @@ body {
 
 /* Rest of pages */
 
-h1, h2, h3, h4 {
-    margin: 15px;
+/* Header */
+h1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    height: 80px;
+    font-size: 36px;
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    margin-bottom: 20px;
+}
+
+h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    font-size: 32px;
+    background: var(--primary-dark);
+    color: var(--primary-light);
+    border-bottom: solid 2px var(--primary-light);
+    margin: 0;
+    padding: 0 20px;
 }
 
 .flex-box {
@@ -49,15 +93,6 @@ h1, h2, h3, h4 {
 
 .disabled {
     display: none;
-}
-
-table, td, tr {
-    padding: 5px 10px;
-    border: solid 1px #444;
-}
-
-table {
-    border-collapse: collapse;
 }
 
 .summary-table {
@@ -79,36 +114,37 @@ a:hover {
 }
 
 .img-flag-small {
-    height: 17px;
-    margin-right: 2px;
+    height: 24px;
+    width: 32px;
+    border-radius: 4px;
 }
 
 .img-flag-big {
-    height: 30px;
-    margin-left: 15px;
-    padding-bottom: 6px;
+    height: 40px;
+    width: 55px;
+    border-radius: 4px;
 }
 
-.table-stats td {
-    width: 100px;
-    text-align: center;
+.stats-table {
+    font-family: "Inter Bold";
+    font-size: 18px;
+    border-collapse: collapse;
+    border-spacing: 0 6px;
+    border-collapse: separate; /* Required for border-spacing to work */
+    margin-bottom: 10px;
 }
 
-.center-text {
-    text-align: center;
+.stats-table td {
+    padding: 0 12px;
+    height: 36px;
 }
 
-.tournament-classification {
-    width: 180px;
-    text-align: center;
+.table-light {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
 }
 
-.tournament-summary-small {
-    width: 50px;
-    text-align: center;
-}
-
-.tournament-summary-medium {
-    width: 100px;
-    text-align: center;
+.table-dark {
+    background-color: var(--primary-dark);
+    color: var(--primary-light);
 }

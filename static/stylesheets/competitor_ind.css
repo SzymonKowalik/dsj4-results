@@ -1,0 +1,57 @@
+.stats-table-ind__avg, .stats-table-ind__comp {
+    width: 190px;
+    text-align: center;
+}
+
+.stats-table-ind__topx {
+    width: 130px;
+    text-align: center;
+}
+
+.tournament-table-ind__name {
+    width: 450px;
+}
+
+.tournament-table-ind__points {
+    width: 250px;
+    text-align: center;
+}
+
+.tournament-table-ind__place {
+    width: 200px;
+    text-align: center;
+}
+
+.results-table-ind__number {
+    text-align: center;
+    width: 50px;
+}
+
+.results-table-ind__type {
+}
+
+.results-table-ind__type img {
+    height: 90%;
+    width: 90%;
+}
+
+.results-table-ind__name {
+    width: 330px;
+}
+
+.results-table-ind__note {
+    text-align: center;
+    width: 100px;
+}
+
+.results-table-ind__round {
+    text-align: center;
+    width: 100px;
+}
+
+.results-table-ind__place {
+    background-color: var(--position);
+    color: var(--primary-light);
+    text-align: center;
+    width: 60px;
+}

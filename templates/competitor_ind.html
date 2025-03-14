@@ -1,10 +1,6 @@
 {% extends "base.html" %}
 {% block head %}
-<style>
-    table {
-        width: 700px;
-    }
-</style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/competitor_ind.css') }}">
 {% endblock %}
 {% block navbar %}
     <div class="nav-menu operator">Statistics</div>
@@ -12,51 +8,78 @@
 {% endblock %}
 {% block content %}
 <!---->
-<h2>
+<h1>
     {{ name }}
     <img class="img-flag-big" src="{{ url_for('static', filename='images/flags/' + country + '.svg') }}">
-</h2>
+</h1>
 <!---->
 <div class="content statistics">
-    <h3>Statistics</h3>
-    <table class="table-stats">
+    <h2>Statistics</h2>
+    <table class="stats-table stat-table-ind">
     {% for row in stats %}
         <tr>
-            {% for col in row %}
-                <td>{{ col }}</td>
-            {% endfor %}
+            <td class="{% if loop.first %}table-light{% else %}table-dark{% endif %} stats-table-ind__avg">
+                {{ row[0] }}
+            </td>
+            <td class="{% if loop.first %}table-light{% else %}table-dark{% endif %} stats-table-ind__comp">
+                {{ row[1] }}
+            </td>
+            <td class="{% if loop.first %}table-light{% else %}table-dark{% endif %} stats-table-ind__topx">
+                {{ row[2] }}
+            </td>
+            <td class="{% if loop.first %}table-light{% else %}table-dark{% endif %} stats-table-ind__topx">
+                {{ row[3] }}
+            </td>
+            <td class="{% if loop.first %}table-light{% else %}table-dark{% endif %} stats-table-ind__topx">
+                {{ row[4] }}
+            </td>
+            <td class="{% if loop.first %}table-light{% else %}table-dark{% endif %} stats-table-ind__topx">
+                {{ row[5] }}
+            </td>
         </tr>
     {% endfor %}
     </table>
     <!---->
-    <h3>Tournament Results</h3>
-    <table>
-    {% for row in tournament_results %}
-        <tr>
-            <td>
-                {% if row[0] != 'Tournament Name' %}
-                <a href="{{ url_for('tournament', tournament_name=row[0]) }}">
-                    {{ row[0] }}
-                </a>
-                {% else %}
-                {{ row[0] }}
-                {% endif %}
-            </td>
-            <td class="tournament-classification">{{ row[1][0] }}</td>
-            <td class="tournament-classification">{{ row[1][1] }}</td>
-        </tr>
-    {% endfor %}
+    <h2>Tournament Results</h2>
+    <table class="stats-table tournament-table-ind">
+{% for row in tournament_results %}
+    <tr>
+        {% if loop.first %}
+        <td class="table-light tournament-table-ind__name">{{ row[0] }}</td>
+        {% else %}
+        <td class="table-dark tournament-table-ind__name">
+            <a href="{{ url_for('tournament', tournament_name=row[0]) }}">{{ row[0] }}</a>
+        </td>
+        {% endif %}
+        <td class="{% if loop.first %}table-light{% else %}table-dark{% endif %} tournament-table-ind__points">
+            {{ row[1][0] }}
+        </td>
+        <td class="{% if loop.first %}table-light{% else %}table-dark{% endif %} tournament-table-ind__place">
+            {{ row[1][1] }}
+        </td>
+    </tr>
+{% endfor %}
 </table>
 </div>
 <!---->
 <div class="content results disabled">
-    <h3>Competition Results</h3>
-    <table>
+    <h2>Competition Results</h2>
+    <table class="stats-table results-table-ind">
     {% for row in results %}
         <tr>
-        {% for col in row %}
-            <td>{{ col }}</td>
-        {% endfor %}
+            <td class="table-light results-table-ind__number">{{ row[0] }}</td>
+            <td class="table-light results-table-ind__type">
+                {% if "ind" in row[1] %}
+                    <img src="{{ url_for('static', filename='images/icons/ind_comp.svg') }}" alt="Individual Competition">
+                {% else %}
+                    <img src="{{ url_for('static', filename='images/icons/team_comp.svg') }}" alt="Team Competition">
+                {% endif %}
+            </td>
+            <td class="table-dark results-table-ind__name">{{ row[2] }}</td>
+            <td class="table-light results-table-ind__note">{{ row[3] }}</td>
+            <td class="table-dark results-table-ind__round">{{ row[4] }}</td>
+            <td class="table-dark results-table-ind__round">{{ row[5] }}</td>
+            <td class="results-table-ind__place">{{ row[6] }}</td>
         </tr>
     {% endfor %}
     </table>

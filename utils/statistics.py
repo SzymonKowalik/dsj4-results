@@ -5,7 +5,7 @@ def individual_stats(cursor, name):
                 FROM ind_results WHERE name='{}' and comp_type='ind'""".format(name)
     cursor.execute(query)
     stats = cursor.fetchall()
-    header = ['AVG Place', 'Competitions', 'TOP 30', 'TOP 10', 'TOP 3', 'TOP 1']
+    header = ['AVG Place', 'Competitions', 'Top 30', 'Top 10', 'Top 3', 'Top 1']
     return [header, *stats]
 
 

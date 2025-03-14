@@ -107,3 +107,6 @@ def refresh():
 
 if __name__ == '__main__':
     app.run(debug=True)
+    # TODO Calculate average place with qualification
+    # TODO Add custom tournaments to main calendar
+    # TODO Indicate qualification in calendar

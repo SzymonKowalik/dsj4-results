@@ -1,64 +1,39 @@
 {% extends "base.html" %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/competition.css') }}">
+{% endblock %}
 {% block content %}
 {% if team_results|length > 1 %}
-    <h2>{{ hill_name }}</h2>
-    <h3>Team classification</h3>
-    <table>
-    {% for row in team_results %}
-        <tr>
-            <td>{{ row[0] }}</td>
-            {% if row[1] != 'name' %}
-                <td>
-                    <a href="{{ url_for('competitor', name=row[1])}}">
-                    {{ row[1] }}
-                    </a>
-                </td>
-            {% else %}
-                <td>{{ row[1] }}</td>
-            {% endif %}
-            {% if row[2] != 'country' %}
-                <td>
-                    <img class="img-flag-small" src="{{ url_for('static', filename='images/flags/'+row[2]+'.svg') }}">
-                    {{ row[2] }}
-                </td>
-            {% else %}
-                <td>{{ row[2] }}</td>
-            {% endif %}
-            {% for col in row[3:] %}
-                <td>{{ col }}</td>
-            {% endfor %}
-        </tr>
-    {% endfor %}
-    </table>
-<!---->
-    <h3>Unofficial individual results</h3>
-    <table>
-        {% for row in ind_results %}
+    <h1>{{ hill_name }}</h1>
+    <h2>Team classification</h2>
+    <table class="standings-table standings-team-table">
+        {% for row in team_results %}
             <tr>
-                <td>{{ row[0] }}</td>
-                {% if row[1] != 'name' %}
-                    <td>
-                        <a href="{{ url_for('competitor', name=row[1])}}">
-                        {{ row[1] }}
-                        </a>
-                    </td>
-                {% else %}
-                    <td>{{ row[1] }}</td>
-                {% endif %}
-                {% if row[2] != 'country' %}
-                    <td>
-                        <img class="img-flag-small" src="{{ url_for('static', filename='images/flags/'+row[2]+'.svg') }}">
-                        {{ row[2] }}
-                    </td>
-                {% else %}
-                    <td>{{ row[2] }}</td>
-                {% endif %}
-                {% for col in row[3:] %}
-                    <td>{{ col }}</td>
-                {% endfor %}
+                <td class="standings-table__position">{{ row[0] }}</td>
+                <td class="standings-table__name">{{ row[1] }}</td>
+                <td class="standings-table__country">
+                    <img class="img-flag-small" src="{{ url_for('static', filename='images/flags/'+row[2]+'.svg') }}">
+                </td>
+                <td class="standings-table__note">{{ row[3] }}</td>
             </tr>
         {% endfor %}
-        </table>
+    </table>
+<!---->
+    <h2>Unofficial individual results</h2>
+    <table class="standings-table standings-ind-table">
+        {% for row in ind_results %}
+            <tr>
+                <td class="standings-table__position">{{ row[0] }}</td>
+                <td class="standings-table__name">{{ row[1] }}</td>
+                <td class="standings-table__country">
+                    <img class="img-flag-small" src="{{ url_for('static', filename='images/flags/'+row[2]+'.svg') }}">
+                </td>
+                <td class="standings-table__round">{{ row[3] }}</td>
+                <td class="standings-table__round">{{ row[4] }}</td>
+                <td class="standings-table__note">{{ row[5] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
 {% else %}
     <h2>Competition has not been finished yet.</h2>
 {% endif %}

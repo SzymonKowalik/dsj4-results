@@ -1,0 +1,84 @@
+.stats-table-ind__wide {
+    width: 120px;
+    text-align: center;
+}
+
+.stats-table-ind__thin {
+    width: 90px;
+    text-align: center;
+}
+
+.stats-table-team__wide {
+    width: 175px;
+    text-align: center;
+}
+
+.stats-table-team__thin {
+    width: 130px;
+    text-align: center;
+}
+
+.competitors-table__name {
+    width: 500px;
+}
+
+.competitors-table__points {
+    width: 120px;
+    text-align: center;
+}
+
+.competitors-table__place_heading {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+    width: 120px;
+    text-align: center;
+}
+
+.competitors-table__place {
+    background-color: var(--position);
+    color: var(--primary-light);
+    width: 120px;
+    text-align: center;
+}
+
+.results-table-ind__number {
+    text-align: center;
+    width: 50px;
+}
+
+.results-table-ind__name {
+    width: 200px;
+}
+
+.results-table-ind__jumper {
+    width: 200px;
+}
+
+.results-table-ind__points {
+    text-align: center;
+    width: 100px;
+}
+
+.results-table-ind__round {
+    text-align: center;
+    width: 100px;
+}
+
+.results-table-team__number {
+    text-align: center;
+    width: 50px;
+}
+.results-table-team__name {
+    width: 600px;
+}
+.results-table-team__points {
+    text-align: center;
+    width: 100px;
+}
+
+.results-table-team__place, .results-table-ind__place {
+    background-color: var(--position);
+    color: var(--primary-light);
+    text-align: center;
+    width: 50px;
+}

@@ -43,7 +43,6 @@ def calendar_with_tournaments(cursor):
         list : A 2D list representing the calendar with tournament information added.
     """
     calendar = return_calendar(cursor)
-    calendar.insert(0, ['id', 'hill', 'type', 'status'])
     tournament_data = read_tournaments()
     for tournament in tournament_data:
         name, comp_type, competition_ids, qualification_ids = tournament

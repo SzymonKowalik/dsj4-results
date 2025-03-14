@@ -1,10 +1,6 @@
 {% extends "base.html" %}
 {% block head %}
-<style>
-    table {
-        width: 800px;
-    }
-</style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/competitor_team.css') }}">
 {% endblock %}
 {% block navbar %}
     <div class="nav-menu operator">Statistics</div>
@@ -12,73 +8,86 @@
 {% endblock %}
 {% block content %}
 <!---->
-<h2>
+<h1>
     {{ name }}
     <img class="img-flag-big" src="{{ url_for('static', filename='images/flags/' + country + '.svg') }}">
-</h2>
+</h1>
 <!---->
 <div class="content statistics">
-    <h3>Individual Statistics</h3>
-    <table class="table-stats">
+    <h2>Individual Statistics</h2>
+    <table class="stats-table">
     {% for row in ind_stats %}
         <tr>
-            {% for col in row %}
-                <td>{{ col }}</td>
-            {% endfor %}
+            <td class="{% if loop.first %}table-light{% else %}table-dark{% endif %} stats-table-ind__wide">{{ row[0] }}</td>
+            <td class="{% if loop.first %}table-light{% else %}table-dark{% endif %} stats-table-ind__wide">{{ row[1] }}</td>
+            <td class="{% if loop.first %}table-light{% else %}table-dark{% endif %} stats-table-ind__wide">{{ row[2] }}</td>
+            <td class="{% if loop.first %}table-light{% else %}table-dark{% endif %} stats-table-ind__thin">{{ row[3] }}</td>
+            <td class="{% if loop.first %}table-light{% else %}table-dark{% endif %} stats-table-ind__thin">{{ row[4] }}</td>
+            <td class="{% if loop.first %}table-light{% else %}table-dark{% endif %} stats-table-ind__thin">{{ row[5] }}</td>
+            <td class="{% if loop.first %}table-light{% else %}table-dark{% endif %} stats-table-ind__thin">{{ row[6] }}</td>
         </tr>
     {% endfor %}
     </table>
     <!---->
     {% if team_stats %}
-        <h3>Team Statistics</h3>
-        <table class="table-stats">
+        <h2>Team Statistics</h2>
+        <table class="stats-table">
         {% for row in team_stats %}
             <tr>
-                {% for col in row %}
-                    <td>{{ col }}</td>
-                {% endfor %}
+                <td class="{% if loop.first %}table-light{% else %}table-dark{% endif %} stats-table-team__wide">{{ row[0] }}</td>
+                <td class="{% if loop.first %}table-light{% else %}table-dark{% endif %} stats-table-team__wide">{{ row[1] }}</td>
+                <td class="{% if loop.first %}table-light{% else %}table-dark{% endif %} stats-table-team__thin">{{ row[2] }}</td>
+                <td class="{% if loop.first %}table-light{% else %}table-dark{% endif %} stats-table-team__thin">{{ row[3] }}</td>
+                <td class="{% if loop.first %}table-light{% else %}table-dark{% endif %} stats-table-team__thin">{{ row[4] }}</td>
             </tr>
         {% endfor %}
         </table>
     {% endif %}
     <!---->
-    <h3>Competitors</h3>
-    <table>
+    <h2>Competitors</h2>
+    <table class="stats-table">
     {% for row in competitors %}
-        <tr>
-            {% if row[0] != 'Name' %}
-            <td><a href="{{ url_for('competitor', name=row[0]) }}">{{ row[0] }}</a></td>
-            {% else %}
-            <td>{{ row[0] }}</td>
-            {% endif %}
-            <td class="tournament-classification">{{ row[1] }}</td>
-            <td class="tournament-classification">{{ row[2] }}</td>
-        </tr>
-    {% endfor %}
+            <tr>
+                {% if loop.first %}
+                <td class="table-light competitors-table__name">{{ row[0] }}</td>
+                {% else %}
+                <td class="table-dark competitors-table__name">
+                    <a href="{{ url_for('competitor', name=row[0]) }}">{{ row[0] }}</a>
+                </td>
+                {% endif %}
+                <td class="table-light competitors-table__points">{{ row[1] }}</td>
+                <td class="{% if loop.first %}competitors-table__place_heading{% else %}competitors-table__place{% endif %}">{{ row[2] }}</td>
+            </tr>
+        {% endfor %}
     </table>
 </div>
 <!---->
 <div class="content results disabled">
-    {% if results[0]|length > 1%}
-        <h3>Team Competitions</h3>
-        <table>
+    {% if results[0]|length > 0%}
+        <h2>Team Competitions</h2>
+        <table class="stats-table">
         {% for row in results[0] %}
             <tr>
-            {% for col in row %}
-                <td>{{ col }}</td>
-            {% endfor %}
+            <td class="table-light results-table-team__number">{{ row[0] }}</td>
+            <td class="table-dark results-table-team__name">{{ row[1] }}</td>
+            <td class="table-light results-table-team__points">{{ row[2] }}</td>
+            <td class="results-table-team__place">{{ row[3] }}</td>
             </tr>
         {% endfor %}
         </table>
     {% endif %}
     <!---->
-    <h3>Individual Competitions</h3>
-    <table>
+    <h2>Individual Competitions</h2>
+    <table class="stats-table">
         {% for row in results[1] %}
             <tr>
-            {% for col in row %}
-                <td>{{ col }}</td>
-            {% endfor %}
+            <td class="table-light results-table-ind__number">{{ row[0] }}</td>
+            <td class="table-dark results-table-ind__name">{{ row[1] }}</td>
+            <td class="table-dark results-table-ind__jumper">{{ row[2] }}</td>
+            <td class="table-light results-table-ind__points">{{ row[3] }}</td>
+            <td class="table-dark results-table-ind__round">{{ row[4] }}</td>
+            <td class="table-dark results-table-ind__round">{{ row[5] }}</td>
+            <td class="results-table-ind__place">{{ row[6] }}</td>
             </tr>
         {% endfor %}
     </table>
