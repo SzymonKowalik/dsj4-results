@@ -45,17 +45,29 @@ def calendar_with_tournaments(cursor):
     calendar = return_calendar(cursor)
     tournament_data = read_tournaments()
     for tournament in tournament_data:
-        name, comp_type, competition_ids, qualification_ids = tournament
-        calendar[0].append(name)
-        for comp_info in calendar[1:]:
+        name, comp_color, comp_type, competition_ids, qualification_ids = tournament
+        for comp_info in calendar:
             comp_id = comp_info[0]
             info = ''
             if comp_id in competition_ids:
                 info += 'X'
             if comp_id in qualification_ids:
                 info += '*'
-            comp_info.append(info)
+            comp_info.append([info, comp_color])
     return calendar
+
+
+def calendar_tournament_info():
+    """
+    Retrieves information about tournaments from the database.
+    """
+    tournament_data = read_tournaments()
+    tournament_info = []
+    for tournament in tournament_data:
+        name, comp_color, comp_type, competition_ids, qualification_ids = tournament
+        tournament_info.append([name, comp_type, comp_color])
+    return tournament_info
+
 
 
 def get_tournament_calendar(calendar, tournaments, tournament_name):
@@ -63,7 +75,7 @@ def get_tournament_calendar(calendar, tournaments, tournament_name):
     Then it appends to new list all competitions which are included in tournament.
     Return tournament_calendar list ready for html table."""
     for tournament in tournaments[2:]:
-        name, _, comp_ids, quali_ids = tournament
+        name, _, _, comp_ids, quali_ids = tournament
         if tournament_name == name:
             break
     else:

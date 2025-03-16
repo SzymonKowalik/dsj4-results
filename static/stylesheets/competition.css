@@ -53,6 +53,11 @@
     border-right: 3px solid var(--secondary-dark);
 }
 
+.round-border-none {
+    border-left: none;
+    border-right: none;
+}
+
 .standings-table__note {
     background-color: var(--primary-light);
     color: var(--primary-dark);

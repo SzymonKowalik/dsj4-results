@@ -39,6 +39,13 @@
     width: 90%;
 }
 
+.standings-calendar-table__tournament {
+    width: 50px;
+    background-color: var(--primary-dark);
+    color: var(--primary-light);
+    text-align: center;
+}
+
 .standings-calendar-table__completed {
     background-color: var(--comp-completed);
     width: 40px;
@@ -84,4 +91,27 @@
     color: var(--primary-light);
     width: 90px;
     text-align: center;
+}
+
+/* Tournament info styles */
+.tournament-info {
+    width: 100%;
+}
+
+.tournament-info__indicator {
+    background-color: var(--primary-dark);
+    width: 10px;
+}
+
+.tournament-info__name {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+    width: 250px;
+}
+
+.tournament-info__comp-type {
+    background-color: var(--primary-dark);
+    color: var(--primary-light);
+    width: calc(100% - 260px);  /* 100% minus indicator and name widths */
+    text-align: left;
 }

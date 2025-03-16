@@ -94,11 +94,11 @@ def prepare_tournament_info(tournament):
     Returns:
         tuple : Tuple containing the name, comp_type, tuple of competition_ids and tuple of qualification_ids.
     """
-    if len(tournament) == 3:
-        name, comp_type, competition_ids = tournament
+    if len(tournament) == 4:
+        name, comp_color, comp_type, competition_ids = tournament
         qualification_ids = (0, 0)
     else:
-        name, comp_type, competition_ids, qualification_ids = tournament
+        name, comp_color, comp_type, competition_ids, qualification_ids = tournament
         # Convert qualification_ids to valid format
         try:
             qualification_ids = tuple(int(qual_id) for qual_id in qualification_ids.split(','))
@@ -116,7 +116,7 @@ def prepare_tournament_info(tournament):
     except ValueError:
         raise ValueError('Wrong competition ids format in tournaments.txt')
 
-    return name, comp_type, competition_ids, qualification_ids
+    return name, comp_color, comp_type, competition_ids, qualification_ids
 
 
 def create_all_tournaments_classifications(cursor, tournaments):
@@ -130,7 +130,7 @@ def create_all_tournaments_classifications(cursor, tournaments):
     ]
 
     for tournament in tournaments:
-        name, comp_type, competition_ids, qualification_ids = tournament
+        name, comp_color, comp_type, competition_ids, qualification_ids = tournament
         tournament_result = tournament_classification(cursor, name, comp_type, competition_ids, qualification_ids)
         tournament_classifications.append(tournament_result)
     # Get all tournament names

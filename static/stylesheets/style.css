@@ -3,28 +3,39 @@
     src: url('/static/fonts/inter_bold.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
+    font-display: swap;
 }
 @font-face {
     font-family: 'Inter Semi Bold';
     src: url('/static/fonts/inter_semibold.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
+    font-display: swap;
 }
 
 :root {
     --primary-dark: #191919;
     --secondary-dark: #4A4A4A;
-    --primary-light: #E8E8E8;
+    --primary-light: #DFDFDF;
+    --background-dark: #262626;
     --position: #8B6F11;
     --comp-completed: #4FB817;
     --comp-planned: #B8A517;
+    --spacing-xs: 4px;
+    --spacing-sm: 10px;
+    --spacing-md: 20px;
+    --spacing-lg: 36px;
+    --spacing-xl: 60px;
+    --font-size-base: 18px;
+    --font-size-lg: 32px;
+    --font-size-xl: 36px;
 }
 
 body {
-    background-color: #262626;
+    background-color: var(--background-dark);
     color: var(--primary-light);
-    font-family: "Inter Semi Bold";
-    margin: 10px;
+    font-family: "Inter Semi Bold",  sans-serif;
+    margin: var(--spacing-sm);
     overflow-y: scroll;
     overflow-x: hidden;
 }
@@ -32,7 +43,7 @@ body {
 /* Scrollbar */
 /* width */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: var(--spacing-sm);
 }
 
 /* Track */
@@ -47,7 +58,7 @@ body {
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #4A4A4A;
+  background: var(--secondary-dark);
 }
 
 /* Rest of pages */
@@ -57,25 +68,24 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 20px;
-    height: 80px;
-    font-size: 36px;
-    background: var(--primary-light);
-    color: var(--primary-dark);
-    margin-bottom: 20px;
+    gap: var(--spacing-md);
+    height: var(--spacing-xl);
+    font-size: var(--font-size-xl);
+    color: var(--primary-light);
+    margin-bottom: var(--spacing-md);
 }
 
 h2 {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 60px;
-    font-size: 32px;
+    height: var(--spacing-xl);
+    font-size: var(--font-size-lg);
     background: var(--primary-dark);
     color: var(--primary-light);
     border-bottom: solid 2px var(--primary-light);
     margin: 0;
-    padding: 0 20px;
+    padding: 0 var(--spacing-md);
 }
 
 .flex-box {
@@ -87,56 +97,52 @@ h2 {
 
 .nav-menu {
     color: #999;
-    margin: auto 10px;
+    margin: auto var(--spacing-sm);
     cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.nav-menu:hover {
+    color: var(--primary-light);
 }
 
 .disabled {
     display: none;
 }
 
-.summary-table {
-    width: 500px;
-}
-
-.tournament-col {
-    width: 100px;
-    text-align: center;
-}
-
 a {
     text-decoration: none;
-    color: white;
+    color: var(--primary-light);
+    transition: color 0.2s ease;
 }
 
 a:hover {
-    color: lightblue;
+    color: var(--comp-planned);
 }
 
 .img-flag-small {
     height: 24px;
     width: 32px;
-    border-radius: 4px;
+    border-radius: var(--spacing-xs);
 }
 
 .img-flag-big {
     height: 40px;
     width: 55px;
-    border-radius: 4px;
+    border-radius: var(--spacing-xs);
 }
 
 .stats-table {
-    font-family: "Inter Bold";
-    font-size: 18px;
-    border-collapse: collapse;
+    font-family: "Inter Bold",  sans-serif;
+    font-size: var(--font-size-base);
     border-spacing: 0 6px;
-    border-collapse: separate; /* Required for border-spacing to work */
-    margin-bottom: 10px;
+    border-collapse: separate;
+    margin-bottom: var(--spacing-sm);
 }
 
 .stats-table td {
     padding: 0 12px;
-    height: 36px;
+    height: var(--spacing-lg);
 }
 
 .table-light {
@@ -147,4 +153,30 @@ a:hover {
 .table-dark {
     background-color: var(--primary-dark);
     color: var(--primary-light);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .summary-table {
+        width: 100%;
+        max-width: 500px;
+    }
+    
+    h1 {
+        font-size: calc(var(--font-size-xl) * 0.8);
+    }
+    
+    h2 {
+        font-size: calc(var(--font-size-lg) * 0.8);
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        margin: var(--spacing-xs);
+    }
+    
+    .stats-table {
+        font-size: calc(var(--font-size-base) * 0.9);
+    }
 }

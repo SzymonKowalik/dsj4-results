@@ -12,6 +12,20 @@
 <!---->
 <div class="content calendar">
     <h1>Calendar</h1>
+    <table class="stats-table tournament-info">
+        {% for tournament in tournament_info %}
+            <tr>
+                <td class="tournament-info__indicator" {% if tournament[2] %}style="background-color: {{ tournament[2] }}"{% endif %}></td>
+                <td class="tournament-info__name">{{ tournament[0] }}</td>
+                {% if tournament[1] == '0' %}
+                    <td class="tournament-info__comp-type">Cup Points</td>
+                {% else %}
+                    <td class="tournament-info__comp-type">Jump Points</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+
     <table class="stats-table standings-calendar-table">
         {% for competition in calendar %}
             <tr>
@@ -33,6 +47,17 @@
                 {% else %}
                     <td class="standings-calendar-table__planned"></td>
                 {% endif %}
+                {% for tournament in competition[4:] %}
+                    <td class="standings-calendar-table__tournament">
+                        {% if 'X' in tournament[0] %}
+                            <svg width="20" height="20">
+                                <circle cx="10" cy="10" r="10" fill="{{ tournament[1] }}"/>
+                            </svg>
+                        {% else %}
+                            {{ tournament[0] }}
+                        {% endif %}
+                    </td>
+                {% endfor %}
             </tr>
         {% endfor %}
     </table>
@@ -80,7 +105,7 @@
                 <td class="standings-table__round round-border-right">3rd</td>
                 <td class="standings-table__round round-border-right">Top 10</td>
                 <td class="standings-table__round round-border-right">Top 30</td>
-                <td class="standings-table__round round-border-right">Average</td>
+                <td class="standings-table__round round-border-none">Average</td>
         </tr>
         {% for row in stats[1:] %}
             <tr>
@@ -92,9 +117,10 @@
                     <img class="img-flag-small" src="{{ url_for('static', filename='images/flags/'+row[2]+'.svg') }}">
                 </td>
                 <td class="standings-table__note">{{ row[3] }}</td>
-                {% for col in row[4:] %}
+                {% for col in row[4:-1] %}
                     <td class="standings-table__round round-border-right">{{ col }}</td>
                 {% endfor %}
+                <td class="standings-table__round round-border-none">{{ row[-1] }}</td>
             </tr>
         {% endfor %}
     </table>

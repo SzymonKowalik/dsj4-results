@@ -75,7 +75,9 @@
                     <img src="{{ url_for('static', filename='images/icons/team_comp.svg') }}" alt="Team Competition">
                 {% endif %}
             </td>
-            <td class="table-dark results-table-ind__name">{{ row[2] }}</td>
+            <td class="table-dark results-table-ind__name">
+                <a href="{{ url_for('competition', comp_id=row[0], hill_name=row[2], comp_type=row[1]) }}">{{ row[2] }}</a>
+            </td>
             <td class="table-light results-table-ind__note">{{ row[3] }}</td>
             <td class="table-dark results-table-ind__round">{{ row[4] }}</td>
             <td class="table-dark results-table-ind__round">{{ row[5] }}</td>

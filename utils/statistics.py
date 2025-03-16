@@ -69,7 +69,7 @@ def individual_all_tournaments(cursor, tournaments, name):
     results.append(['Individual World Cup', *cursor.fetchall()])
     # Rest of tournaments
     for tournament in tournaments[2:]:
-        tournament_name, comp_type, comp_ids, qual_ids = tournament
+        tournament_name, comp_color, comp_type, comp_ids, qual_ids = tournament
         if comp_type == '0':
             comp_type = 'points'
         else:

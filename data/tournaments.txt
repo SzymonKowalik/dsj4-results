@@ -1,6 +1,6 @@
-# name;comp_type(0 - points / 1 notes);competition_ids;qualifying_ids
+# name;hex_color;comp_type(0 - points / 1 notes);competition_ids;qualifying_ids
 # If there's a team competition included only type 1 is allowed
-RawAir;1;1,2,3,4,5;1,2,3,4
-Four Hills Tournament;1;11,12,13,14
-Ski Flying Cup;0;4,15,16,19,21
-Planica8;1;19,20,21;19,21
+RawAir;#DB3FA7;1;1,2,3,4,5;1,2,3,4
+Four Hills Tournament;#3FDB9C;1;11,12,13,14
+Ski Flying Cup;#D6DB3F;0;4,15,16,19,21
+Planica8;#DB3F3F;1;19,20,21;19,21

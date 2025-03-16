@@ -20,17 +20,18 @@ Vikersund HS240;team
 ## Customising tournaments
 Tournament options are placed in `./data/tournaments.txt` file.\
 Each tournament must be written in new line in format\
-`{name};{type};{competition_ids};{qualification_ids}`
+`{name};{hex_color};{type};{competition_ids};{qualification_ids}`
 * name - name of tournament
+* hex_color - color of tournament shown in calendar
 * type - 0 for points | 1 for notes
 * competition_ids - comma separated ids of competition
 * qualification_ids (optional) - comma separated ids of qualifications
 
 For example:
 ```
-RawAir;1;1,2,3,4,5;1,2,3,4
-Four Hills Tournament;1;11,12,13,14
-Ski Flying Cup;0;4,15,16,19,21
+RawAir;#DB3FA7;1;1,2,3,4,5;1,2,3,4
+Four Hills Tournament;#3FDB9C;1;11,12,13,14
+Ski Flying Cup;#D6DB3F;0;4,15,16,19,21
 ```
 
 *Team competition will not work with point type tournaments.\
