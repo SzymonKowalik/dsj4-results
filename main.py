@@ -1,6 +1,6 @@
 from utils.create_database import initialise_tables, process_competition_files
 from utils.classifications import create_all_tournaments_classifications, read_tournaments
-from utils.calendar import calendar_with_tournaments, get_tournament_calendar, calendar_tournament_info
+from utils.calendar import calendar_with_tournaments, get_tournament_calendar, calendar_tournament_info, get_hill_name
 from utils.results import individual_competition_results, individual_results, team_results, team_competition_results,\
     team_ind_competition_results, qualifying_results
 from utils.statistics import individual_stats, team_ind_stats, team_competitors, individual_all_tournaments,\
@@ -18,7 +18,10 @@ initialise_tables(cur)
 
 @app.route('/')
 def index():
-    classifications, tournaments, calendar_all, tournament_info = refresh()
+    process_competition_files(cur, con)
+    classifications, tournaments = create_all_tournaments_classifications(cur, read_tournaments())
+    calendar_all = calendar_with_tournaments(cur)
+    tournament_info = calendar_tournament_info()
     stats = competitors_stats(cur)
     return render_template(
         'index.html',
@@ -31,18 +34,15 @@ def index():
 
 @app.route('/competition/<comp_id>')
 def competition(comp_id):
-    classifications, tournaments, calendar_all, tournament_info = refresh()
-    hill_name = request.args.get('hill_name')
-    comp_type = request.args.get('comp_type')
-    if comp_type in ('ind', 'ind*'):
-        ind_results = individual_competition_results(cur, comp_id)
-        qual_results = qualifying_results(cur, comp_id)
-        return render_template('competition_ind.html',
-                               tournaments=tournaments,
-                               ind_results=ind_results,
-                               qual_results=qual_results,
-                               hill_name=hill_name)
-    else:
+    process_competition_files(cur, con)
+    _, tournaments = create_all_tournaments_classifications(cur, read_tournaments())
+    
+    # Get competition type from database
+    cur.execute("SELECT comp_type FROM competitions WHERE comp_id = ?", (comp_id,))
+    comp_type = cur.fetchone()[0]
+    print(comp_type)
+    hill_name = get_hill_name(cur, comp_id)
+    if comp_type == "team":
         team_results = team_competition_results(cur, comp_id)
         ind_results = team_ind_competition_results(cur, comp_id)
         return render_template('competition_team.html',
@@ -50,11 +50,21 @@ def competition(comp_id):
                                team_results=team_results,
                                ind_results=ind_results,
                                hill_name=hill_name)
+    else:  # individual
+        ind_results = individual_competition_results(cur, comp_id)
+        qual_results = qualifying_results(cur, comp_id)
+        return render_template('competition_ind.html',
+                               tournaments=tournaments,
+                               ind_results=ind_results,
+                               qual_results=qual_results,
+                               hill_name=hill_name)
+        
 
 
 @app.route('/competitor/<name>')
 def competitor(name):
-    classifications, tournaments, calendar_all, tournament_info = refresh()
+    process_competition_files(cur, con)
+    _, tournaments = create_all_tournaments_classifications(cur, read_tournaments())
     # Regex for team as name
     country = re.search(r"^[A-Z]{3}$", name)
     if country:
@@ -87,7 +97,9 @@ def competitor(name):
 
 @app.route('/tournament/<tournament_name>')
 def tournament(tournament_name):
-    classifications, tournaments, calendar_all, tournament_info = refresh()
+    process_competition_files(cur, con)
+    classifications, tournaments = create_all_tournaments_classifications(cur, read_tournaments())
+    calendar_all = calendar_with_tournaments(cur)
     for tournament in classifications:
         if tournament_name == tournament[0]:
             tournament_data = tournament[1]
@@ -97,14 +109,6 @@ def tournament(tournament_name):
                            tournament_name=tournament_name,
                            tournament_data=tournament_data,
                            tournament_calendar=tournament_calendar)
-
-
-def refresh():
-    process_competition_files(cur, con)
-    classifications, tournaments = create_all_tournaments_classifications(cur, read_tournaments())
-    calendar_all = calendar_with_tournaments(cur)
-    tournament_info = calendar_tournament_info()
-    return classifications, tournaments, calendar_all, tournament_info
 
 
 if __name__ == '__main__':

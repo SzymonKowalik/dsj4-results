@@ -70,7 +70,7 @@
             <tr>
             <td class="table-light results-table-team__number">{{ row[0] }}</td>
             <td class="table-dark results-table-team__name">
-                <a href="{{ url_for('competition', comp_id=row[0], comp_type='team', hill_name=row[1]) }}">{{ row[1] }}</a>
+                    <a href="{{ url_for('competition', comp_id=row[0]) }}">{{ row[1] }}</a>
             </td>
             <td class="table-light results-table-team__points">{{ row[2] }}</td>
             <td class="results-table-team__place">{{ row[3] }}</td>
@@ -85,7 +85,7 @@
             <tr>
             <td class="table-light results-table-ind__number">{{ row[0] }}</td>
             <td class="table-dark results-table-ind__name">
-                <a href="{{ url_for('competition', comp_id=row[0], comp_type='ind', hill_name=row[1]) }}">{{ row[1] }}</a>
+                    <a href="{{ url_for('competition', comp_id=row[0]) }}">{{ row[1] }}</a>
             </td>
             <td class="table-dark results-table-ind__jumper">
                 <a href="{{ url_for('competitor', name=row[2]) }}">{{ row[2] }}</a>

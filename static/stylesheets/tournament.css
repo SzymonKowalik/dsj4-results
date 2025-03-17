@@ -105,8 +105,15 @@
 
 .tournament-info__name {
     background-color: var(--primary-light);
-    color: var(--primary-dark);
     width: 250px;
+}
+
+.tournament-info__name a {
+    color: var(--primary-dark);
+}
+
+.tournament-info__name a:hover {
+    color: var(--secondary-dark);
 }
 
 .tournament-info__comp-type {

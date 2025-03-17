@@ -21,7 +21,7 @@ def team_ind_stats(cursor, country):
                 WHERE country='{}' and comp_type='ind'""".format(country, country)
     cursor.execute(query)
     stats = cursor.fetchall()
-    header = ['Jumpers', 'AVG Place', 'Competitions', 'TOP 30', 'TOP 10', 'TOP 3', 'TOP 1']
+    header = ['Jumpers', 'AVG Place', 'Competitions', 'Top 30', 'Top 10', 'Top 3', 'Top 1']
     return [header, *stats]
 
 
@@ -37,7 +37,7 @@ def team_team_stats(cursor, country):
     if stats[0][0] is None:
         return None
     else:
-        header = ['AVG Place', 'Competitions', 'TOP 8', 'TOP 3', 'TOP 1']
+        header = ['AVG Place', 'Competitions', 'Top 8', 'Top 3', 'Top 1']
         return [header, *stats]
 
 

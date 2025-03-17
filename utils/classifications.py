@@ -81,7 +81,10 @@ def read_tournaments():
             return [prepare_tournament_info(line.rstrip().split(';')) for line in file
                     if not line.startswith('#') and line != '\n']
     except FileNotFoundError:
-        open('./data/tournaments.txt', 'w')
+        with open('./data/tournaments.txt', 'w', encoding='UTF-8') as file:
+            file.write('# name;hex_color;comp_type(0 - points / 1 notes);competition_ids;qualifying_ids\n')
+            file.write('# If there\'s a team competition included only type 1 is allowed\n')
+        return []
 
 
 def prepare_tournament_info(tournament):

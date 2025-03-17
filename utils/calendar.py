@@ -60,6 +60,8 @@ def calendar_with_tournaments(cursor):
 def calendar_tournament_info():
     """
     Retrieves information about tournaments from the database.
+    Returns:
+        list: List of lists containing [name, comp_type, comp_color] for each tournament.
     """
     tournament_data = read_tournaments()
     tournament_info = []
@@ -67,7 +69,6 @@ def calendar_tournament_info():
         name, comp_color, comp_type, competition_ids, qualification_ids = tournament
         tournament_info.append([name, comp_type, comp_color])
     return tournament_info
-
 
 
 def get_tournament_calendar(calendar, tournaments, tournament_name):
@@ -88,3 +89,12 @@ def get_tournament_calendar(calendar, tournaments, tournament_name):
                 comp_type = f'{comp_type}*'
             tournament_calendar.append([comp_id, comp_name, comp_type, comp_status])
     return tournament_calendar
+
+
+def get_hill_name(cursor, comp_id):
+    """Retrieve the hill name for a given competition ID.
+    If competition is not found, return empty string."""
+    query = "SELECT hill FROM competitions WHERE comp_id = ?"
+    cursor.execute(query, (comp_id,))
+    result = cursor.fetchone()
+    return result[0] if result else ''

@@ -11,9 +11,13 @@
             <tr>
                 <td class="standings-calendar-table__number">{{ competition[0] }}</td>
                 <td class="standings-calendar-table__hill">
-                    <a href="{{ url_for('competition', comp_id=competition[0], hill_name=competition[1], comp_type=competition[2]) }}">
+                    {% if competition[3] == "completed" %}
+                        <a href="{{ url_for('competition', comp_id=competition[0]) }}">
+                            {{ competition[1] }}
+                        </a>
+                    {% else %}
                         {{ competition[1] }}
-                    </a>
+                    {% endif %}
                 </td>
                 <td class="standings-calendar-table__type">
                     {% if "ind" in competition[2] %}

@@ -16,7 +16,7 @@
         {% for tournament in tournament_info %}
             <tr>
                 <td class="tournament-info__indicator" {% if tournament[2] %}style="background-color: {{ tournament[2] }}"{% endif %}></td>
-                <td class="tournament-info__name">{{ tournament[0] }}</td>
+                <td class="tournament-info__name"><a href="{{ url_for('tournament', tournament_name=tournament[0]) }}">{{ tournament[0] }}</a></td>
                 {% if tournament[1] == '0' %}
                     <td class="tournament-info__comp-type">Cup Points</td>
                 {% else %}
@@ -31,9 +31,13 @@
             <tr>
                 <td class="standings-calendar-table__number">{{ competition[0] }}</td>
                 <td class="standings-calendar-table__hill">
-                    <a href="{{ url_for('competition', comp_id=competition[0], hill_name=competition[1], comp_type=competition[2]) }}">
+                    {% if competition[3] == "completed" %}
+                        <a href="{{ url_for('competition', comp_id=competition[0]) }}">
+                            {{ competition[1] }}
+                        </a>
+                    {% else %}
                         {{ competition[1] }}
-                    </a>
+                    {% endif %}
                 </td>
                 <td class="standings-calendar-table__type">
                     {% if "ind" in competition[2] %}
